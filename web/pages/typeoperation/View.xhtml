@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTypeoperationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTypeoperationLabel_id}"/>
+                    <h:outputText value="#{typeoperationController.selected.id}" title="#{bundle.ViewTypeoperationTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewTypeoperationLabel_code}"/>
+                    <h:outputText value="#{typeoperationController.selected.code}" title="#{bundle.ViewTypeoperationTitle_code}"/>
+                    <h:outputText value="#{bundle.ViewTypeoperationLabel_libelle}"/>
+                    <h:outputText value="#{typeoperationController.selected.libelle}" title="#{bundle.ViewTypeoperationTitle_libelle}"/>
+                    <h:outputText value="#{bundle.ViewTypeoperationLabel_operation}"/>
+                    <h:outputText value="#{typeoperationController.selected.operation}" title="#{bundle.ViewTypeoperationTitle_operation}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{typeoperationController.destroyAndView}" value="#{bundle.ViewTypeoperationDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewTypeoperationEditLink}"/>
+                <br />
+                <h:commandLink action="#{typeoperationController.prepareCreate}" value="#{bundle.ViewTypeoperationCreateLink}" />
+                <br />
+                <h:commandLink action="#{typeoperationController.prepareList}" value="#{bundle.ViewTypeoperationShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewTypeoperationIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

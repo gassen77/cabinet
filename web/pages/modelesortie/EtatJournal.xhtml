@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Mod&egrave;le Sortie"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <style type="text/css">
+                #mon_div {
+                    height: 50px;
+                    position: fixed;
+                    bottom: 0px;
+                }
+            </style>
+            <h:panelGroup id="messagePanel" layout="block">
+                <p:growl/>
+            </h:panelGroup>
+            <h:form id="f1">
+                <p:panel header="Journal #{journaux.pageActuelle}">
+                    <center>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Mod&egrave;le" style="width:200px!important;"/>
+                        <p:selectOneMenu   style="width:200px!important;" required="true" requiredMessage="veuillez saisir le modele" value="#{journaux.modeleChoisi}">
+                            <f:selectItems value="#{journaux.itemsAvailableSelectOneNomTablesJournal}"/>
+                            <p:ajax event="change" listener="#{journaux.changeModelJournal}" update=":f1"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Date D&eacute;but"/>
+                        <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{journaux.date1}"/>
+                        <h:outputLabel value="Date Fin"/>
+                        <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{journaux.date2}"/>
+                            <h:outputLabel value="Produit "/>
+                        <p:autoComplete dropdown="true" size="40" var="resultPrd" itemValue="#{resultPrd}" itemLabel="#{resultPrd.nomPro}" 
+                                        id="acPrdInv"   value="#{journaux.prodFiltrage}" converter="#{detailConventionComController.produitConverter}"
+                                            completeMethod="#{detailConventionComController.autocompleteCodeNomProduit}">
+                                <p:column>
+                                    <h:outputLabel value="#{resultPrd.nomPro}"/>
+                                </p:column>
+                            </p:autoComplete>
+                    </h:panelGrid>
+                    </center>
+                </p:panel>
+                <h:panelGroup id="panelProdDetailsTableJournauxRapport">
+                    <center>
+                    <p:dataTable binding="#{journaux.dataTableDetails}" emptyMessage="Liste Vide" var="det" value="#{journaux.detailsModele}"
+                                 rowKey="#{det.idDetailModeleSortie}" style="width:800px!important">
+                        <p:column headerText="Colonne" style="width:350px!important">
+                            <h:outputText value="#{det.nomColonne} "/>
+              
+                        </p:column>
+                        <p:column headerText="Valeur Filtrage" style="width:450px!important">  
+                            <center>
+                                <p:autoComplete dropdown="true" scrollHeight="250" size="45" var="resultDyn" itemValue="#{resultDyn}" itemLabel="#{resultDyn}" 
+                                                 value="#{det.valueLikeColonne}" completeMethod="#{journaux.autocompleteCodeNomDynamique}" >
+                                    <p:column>
+                                        <h:outputLabel value="#{resultDyn}"/>
+                                    </p:column>
+                                </p:autoComplete>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                    </center>
+                </h:panelGroup>
+                <div style="height: 150px;"></div>
+                <div id="mon_div">
+                    &nbsp; &nbsp;<h:commandLink rendered="#{journaux.boutonEtat|| authetification.flagprivilegeafficherMail}">
+                                     <h:graphicImage value="/img/edit_f2.png" style="border:0px;" rendered="#{authetification.flagprivilegeafficherMail}"/>
+                                    <p:ajax event="click"  update="dialoguePdfs" oncomplete="varDialogPdfs.show()"/>
+                                 </h:commandLink>
+                    &nbsp; &nbsp; <p:commandLink ajax="false"  title="Pdf" action="#{journaux.genererListItemsPdf()}"> <h:graphicImage value="/img/icone_pdf.png" style="border:0px;" /></p:commandLink>
+                      
+                       &nbsp; &nbsp;   <p:commandLink ajax="false" title="Excel"  action="#{journaux.genererListItemsExcel()}" ><h:graphicImage value="/img/excel_icon_32x32.jpg" style="border:0px;" /></p:commandLink>
+                   
+                    &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+                </div>
+                <p:dialog  header="Edition Rapport" id="dialoguePdfs" widgetVar="varDialogPdfs" width="450">
+                        <center>
+                      
+                       
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Email"/>
+                            <h:inputText value="#{journaux.emailSender}"/>
+                            <h:outputText value="Mot de passe"/>
+                            <h:inputSecret value="#{journaux.passwordEmailSender}"/>
+                            <h:outputText value="Destinataire"/>
+                            <h:inputText value="#{journaux.emailReceiver}"/>
+                           
+                        </h:panelGrid>
+                           <h:panelGrid columns="30" >
+                        <p:commandLink  ajax="false"  title="Mailing Pdf" action="#{journaux.sendEmailPdf()}"><h:graphicImage value="/img/pdfmail.gif" style="border:0px;" /></p:commandLink>
+                         <p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/>
+                          <p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/>
+                        <p:commandLink   ajax="false" title="Mailing Excel" action="#{journaux.sendEmailExcel()}"><h:graphicImage value="/img/mailExcel.jpg" style="border:0px;" /></p:commandLink>
+                       </h:panelGrid>
+                        </center>
+                    </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

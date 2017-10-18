@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+      
+        <ui:define name="body">
+             <style type="text/css">
+                #mon_div {
+                    height: 50px;
+                    position: fixed;
+                    bottom: 0px;
+                }
+            </style>
+            <br/>
+            <h:form id="formR">
+               <p:growl id="msg" />
+               <p:panel header="Extrait Compte" style="font-size: 20px;">
+                  
+                   <center>
+               
+               <center>
+                <h:panelGrid columns="6"  cellpadding="20">
+                    <h:outputLabel value="Date d&eacute;but"/>
+                        <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{reglementComController.dateDebut}"><p:ajax event="dateSelect" update="@this" /></p:calendar> 
+                     
+                     <h:outputLabel value="Date Fin" />
+                     <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{reglementComController.dateFin}"><p:ajax event="dateSelect" update="@this" /></p:calendar> 
+                 
+                                     
+                     <h:outputLabel value=" Patient" />
+                        <p:autoComplete  id="cln"   value="#{reglementComController.filtreTiersEtat}"  completeMethod="#{reglementComController.autocompleteClient}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nom}" >
+                                    <h:column >#{result.nom}</h:column> 
+                                     <h:column >#{result.code}</h:column> 
+                                    <p:ajax event="itemSelect" update="@this" /> 
+                                
+                        </p:autoComplete>
+                       
+                       
+                    </h:panelGrid> 
+               </center>
+               </center>
+                </p:panel> 
+                
+  
+                 <center>
+            
+                 
+               <h3>Orientation</h3>  
+  
+        <p:selectOneRadio id="customRadio" value="#{reglementComController.optionOrient}" >  
+            <f:selectItem itemLabel="portrait" itemValue="1" ></f:selectItem>
+            <f:selectItem itemLabel="paysage" itemValue="2" ></f:selectItem>
+            <p:ajax update="customRadio" /> 
+            </p:selectOneRadio>  
+             
+             
+             </center>           
+            <br/>
+              
+                
+               
+                 <center>    
+
+              <div id="mon_div">
+                   
+                  &nbsp; &nbsp;  <p:commandLink ajax="false"  title="Pdf" action="#{reglementComController.rapportExtraitPatient}"> <h:graphicImage value="/img/logo_pdf.png" style="border:0px;" /></p:commandLink>
+                         &nbsp; &nbsp;
+               
+                    &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+                </div>
+          </center>
+               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

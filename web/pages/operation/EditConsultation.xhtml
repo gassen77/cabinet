@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="f1">
+               <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Consultation Patient" style="font-size: 20px;">
+                <h:panelGrid columns="8">
+             <h:outputLabel value="Client" for="client" />
+                    
+                    <p:autoComplete id="client" size="30" dropdown="true" var="resultClient1" itemValue="#{resultClient1}" itemLabel="#{resultClient1.nom}" 
+                                     maxResults="10"    value="#{operationController.selected.client}"  completeMethod="#{operationController.autocompleteClient}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultClient1.nom}"/>
+                                            </p:column>
+                                        </p:autoComplete>                
+                   
+                    <h:outputLabel value="date" for="dateconsultation" />
+                   
+                    <p:calendar id="dateconsultation" navigator="true"  pattern="dd/MM/yyyy"  value="#{operationController.selected.dateconsultation}"   />
+
+                    <h:outputLabel value="montant operation" for="montantoperation" />
+                    <p:inputText id="montantoperation" binding="#{operationController.inputTextMontantOperation}" value="#{operationController.selected.montantoperation}" >
+                     <f:convertNumber minFractionDigits="3" locale="en-US"  />
+                        <p:ajax update="@this" ></p:ajax>
+                    </p:inputText>   
+                    <h:outputLabel value="Motif Consultation" for="motifconsultation" />
+                    <h:inputTextarea id="motifconsultation" value="#{operationController.selected.motifconsultation}"  />
+                    
+                    <h:outputText value="Details"/>
+                    <p:selectBooleanButton onLabel="Oui" offLabel="Non" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{operationController.selected.detail}">
+                        <p:ajax event="change" update="@this :f1" listener="#{operationController.affichagelisteproduits()}" />
+                    </p:selectBooleanButton>  
+                    <h:outputText value="Visite réglé"/>
+                    <p:selectBooleanButton onLabel="Oui" offLabel="Non" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{operationController.visiteregle}">
+                        <p:ajax event="change" update="@this"  />
+                    </p:selectBooleanButton>  
+                                       
+               </h:panelGrid>
+                      <br/>
+                       <br/>
+                 <h:panelGroup id="panelProdDetailsTable20" >
+                  
+                     <p:dataTable binding="#{operationController.dataTableProduit}" emptyMessage="Liste Vide" rowIndexVar="rowIndex" styleClass="dt"  scrollable="true" scrollHeight="308" var="det"  value="#{operationController.listeDetails}" id="prodDetailsTable" style="font-weight: bold;font-size: 20px;" >
+             
+
+ 
+                        <p:column style="width: 30%!important">  
+                           <f:facet name="header">
+                                <h:outputText value="Acte"/>
+                                
+                            </f:facet>
+                                 
+                            
+                                <p:autoComplete id="codeacte" style = "width: 100%"  inputStyle = "width: 100%" dropdown="true" var="Acte" itemValue="#{Acte}" itemLabel="#{Acte.libelleacte}"  
+                                              maxResults="10"     value="#{det.idacte}" completeMethod="#{operationController.autocompleteActe}">
+                      <p:ajax event="itemSelect"  update=" :f1:prodDetailsTable:codeacte" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{Acte.libelleacte}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+              
+                          
+                        </p:column>
+                       <p:column style="width: 30%!important">
+                       <f:facet name="header">
+                               <f:facet name="header">
+                                <h:outputText value="Dent"/>
+                                
+                            </f:facet>
+                            </f:facet>
+                            
+                            
+                        
+                              <p:autoComplete id="dent" style = "width: 100%"  inputStyle = "width: 100%" dropdown="true" var="Dent" itemValue="#{Dent}" itemLabel="#{Dent.libelledent}" 
+                                              maxResults="10"     value="#{det.iddent}" completeMethod="#{operationController.autocompleteDent}">
+                      <p:ajax event="itemSelect"  update=" :f1:prodDetailsTable:dent" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{Dent.libelledent}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+              
+                          
+                        </p:column>
+                    
+                                  
+                                 
+                        <p:column style="width: 30%!important">
+                             
+                               <f:facet name="header">
+                                <h:outputText  value="Tarif" />
+                                
+                            </f:facet>
+                         
+                                <p:inputText  style = "width: 100%"   onclick="this.select();"  id="tarif" value="#{det.tarif}">
+                                    <p:ajax event="blur"  update="  tarif f1:montantoperation" listener="#{operationController.calculConsultation()}" />
+                                                                
+
+                                <f:convertNumber minFractionDigits="3" locale="en-US"  />     
+                                </p:inputText>
+                              
+                           
+                        </p:column>                   
+                       
+                                  <p:column style="width: 10%!important">
+                               <f:facet name="header">
+                                <h:outputText  value="Actions" />
+                                
+                            </f:facet>
+                           
+                                           <p:commandLink update=":f1"  
+                                                          actionListener="#{operationController.ajouterLigneProduit()}">
+                                <h:graphicImage value="/img/++.png" style="border:1px;"/>
+                                
+                            </p:commandLink>
+                            
+                            <p:commandLink update=":f1:prodDetailsTable :f1:montantoperation"    
+                                           actionListener="#{operationController.supprimerLigneProduit()}"> 
+                               
+                                <h:graphicImage value="/img/icone_supprimer.gif" style="border:1px;"/>
+                           
+                                         </p:commandLink>
+                           
+                          
+                        </p:column>
+                
+                       
+                       
+                      
+                      
+                    </p:dataTable>
+                      <br/>
+                            <p:dataTable binding="#{operationController.dataTableOrdonance}" emptyMessage="Liste Vide" rowIndexVar="rowIndex" styleClass="dt"  scrollable="true" scrollHeight="308" var="det1"  value="#{operationController.listeDetailsOrdonance}" id="prodDetailsTableOrdonance" style="font-weight: bold;font-size: 20px;" >
+             
+
+ 
+                        <p:column style="width: 30%!important">  
+                           <f:facet name="header">
+                                <h:outputText value="Medicament" />
+                                
+                            </f:facet>
+                                 
+                            
+                                <p:autoComplete id="codemedicament" style = "width: 100%"  inputStyle = "width: 100%"  dropdown="true" var="Medicament" itemValue="#{Medicament}" itemLabel="#{Medicament.libellemedicament}"  
+                                              maxResults="10"     value="#{det1.idmedicament}" completeMethod="#{operationController.autocompleteMedicament}">
+                      <p:ajax event="itemSelect"  update=" :f1:prodDetailsTableOrdonance:codemedicament" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{Medicament.libellemedicament}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+              
+                          
+                        </p:column>
+                     
+                    
+                                  
+                                 
+                        <p:column style="width: 20%!important">
+                             
+                               <f:facet name="header">
+                                <h:outputText  value="Qte" />
+                                
+                            </f:facet>
+                         
+                                <p:inputText   style = "width: 100%"  onclick="this.select();"  id="qte1" value="#{det1.qteordonance}">
+                                                              
+
+                                <f:convertNumber minFractionDigits="3" locale="en-US"  />     
+                                </p:inputText>
+                              
+                           
+                        </p:column>                   
+                         <p:column style="width: 20%!important">
+                             
+                               <f:facet name="header">
+                                <h:outputText  value="Posologie" />
+                                
+                            </f:facet>
+                         
+                                <p:inputText  style = "width: 100%"  onclick="this.select();"  id="posologie" value="#{det1.posologie}">
+                                                              
+
+                                  
+                                </p:inputText>
+                              
+                           
+                        </p:column>   
+                                   <p:column style="width: 20%!important">
+                             
+                               <f:facet name="header">
+                                <h:outputText  value="Duree" />
+                                
+                            </f:facet>
+                         
+                                <p:inputText  style = "width: 100%"  onclick="this.select();"  id="duree" value="#{det1.duree}">
+                                                              
+
+                                 
+                                </p:inputText>
+                              
+                           
+                        </p:column>  
+                                  <p:column style="width: 10%!important">
+                               <f:facet name="header">
+                                <h:outputText  value="Actions" />
+                                
+                            </f:facet>
+                           
+                                           <p:commandLink update=":f1"  
+                                                          actionListener="#{operationController.ajouterLigneOrdonance()}">
+                                <h:graphicImage value="/img/++.png" style="border:1px;"/>
+                            </p:commandLink>
+                            
+                            <p:commandLink update=":f1"  
+                                           actionListener="#{operationController.supprimerLigneOrdonance()}">
+                                <h:graphicImage value="/img/icone_supprimer.gif" style="border:1px;"/>
+                            </p:commandLink>
+                           
+                          
+                        </p:column>
+                
+                       
+                       
+                      
+                      
+                    </p:dataTable>
+                       <br/>
+                </h:panelGroup>
+            
+                     
+                     <br/>
+                     &nbsp; &nbsp;<h:commandLink  action="#{operationController.updateConsultation}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                     &nbsp; &nbsp;<h:commandLink action="#{operationController.prepareListConsultation}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

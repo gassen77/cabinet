@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width"></meta>
+         </h:head>
+    <h:body>
+        <style>
+            *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+.container
+{
+	width: 90%;
+	height: 100px;
+	
+}
+.container > header {
+	width: 90%;
+	max-width: 70em;
+	margin: 0 auto;
+	padding: 0 1.875em 3.125em 1.875em;
+}
+
+.container > header {
+	padding: 2.875em 1.875em 1.875em;
+}
+
+.container > header h1 {
+	font-size: 2.125em;
+	line-height: 1.3;
+	margin: 0;
+	float: left;
+	font-weight: 400;
+}
+
+.container > header span {
+	display: block;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.5em;
+	padding: 0 0 0.6em 0.1em;
+}
+
+.container > header nav {
+	float: right;
+}
+
+.container > header nav a {
+	display: block;
+	float: left;
+	position: relative;
+	width: 2.5em;
+	height: 2.5em;
+	background: #fff;
+	border-radius: 50%;
+	color: transparent;
+	margin: 0 0.1em;
+	border: 4px solid #47a3da;
+	text-indent: -8000px;
+}
+
+.container > header nav a:after {
+	content: attr(data-info);
+	color: #47a3da;
+	position: absolute;
+	width: 600%;
+	top: 120%;
+	text-align: right;
+	right: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.container > header nav a:hover:after {
+	opacity: 1;
+}
+
+.container > header nav a:hover {
+	background: #47a3da;
+}
+
+.icon-drop:before, 
+.icon-arrow-left:before {
+	font-family: 'fontawesome';
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 2;
+	text-align: center;
+	color: #47a3da;
+	-webkit-font-smoothing: antialiased;
+	text-indent: 8000px;
+	padding-left: 8px;
+}
+
+.container > header nav a:hover:before {
+	color: #fff;
+}
+
+.icon-drop:before {
+	content: "\e000";
+}
+
+.icon-arrow-left:before {
+	content: "\f060";
+}
+#menu, #menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#menu {
+    width: 100%;
+    margin: 60px auto;
+    border: 1px solid #222;
+    background-color: #111;
+    background-image: linear-gradient(#444, #111);
+    border-radius: 6px;
+    box-shadow: 0 1px 1px #777;
+}
+#menu:before,
+#menu:after {
+    content: "";
+    display: table;
+}
+
+#menu:after {
+    clear: both;
+}
+
+#menu {
+    zoom:1;
+}
+#menu li {
+    float: left;
+    border-right: 1px solid #222;
+    box-shadow: 1px 0 0 #444;
+    position: relative;
+}
+
+#menu a {
+    float: left;
+    padding: 18px 30px;
+    width: 130px;
+    color: #999;
+    text-transform: uppercase;
+    font: bold 12px Arial, Helvetica;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #000;
+}
+
+
+
+#menu li:hover > a {
+    color: #fafafa;
+}
+
+html #menu li a:hover { /* IE6 only */
+    color: #fafafa;
+}
+#menu ul {
+    margin: 20px 0 0 0;
+    _margin: 0; /*IE6 only*/
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 38px;
+    left: 0;
+    z-index: 1;    
+    background: #444;   
+    background: linear-gradient(#444, #111);
+    box-shadow: 0 -1px 0 rgba(255,255,255,.3);  
+    border-radius: 3px;
+    transition: all .2s ease-in-out;
+}
+
+#menu li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+    margin: 0;
+}
+
+#menu ul ul {
+    top: 0;
+    left: 150px;
+    margin: 0 0 0 20px;
+    _margin: 0; /*IE6 only*/
+    box-shadow: -1px 0 0 rgba(255,255,255,.3);      
+}
+
+#menu ul li {
+    float: none;
+    display: block;
+    border: 0;
+    _line-height: 0; /*IE6 only*/
+    box-shadow: 0 1px 0 #111, 0 2px 0 #666;
+}
+
+#menu ul li:last-child {   
+    box-shadow: none;    
+}
+
+#menu ul a {    
+    padding: 18px 30px;
+    width: 130px;
+    _height: 10px; /*IE6 only*/
+    display: block;
+    white-space: nowrap;
+    float: none;
+    text-transform: none;
+}
+
+
+
+#menu ul a:hover {
+    background-color: #0186ba;
+    background-image: linear-gradient(#04acec, #0186ba);
+}
+#menu ul li:first-child > a {
+    border-radius: 3px 3px 0 0;
+}
+
+#menu ul li:first-child > a:after {
+    content: '';
+    position: absolute;
+    left: 40px;
+    top: -6px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #444;
+}
+
+#menu ul ul li:first-child a:after {
+    left: -6px;
+    top: 50%;
+    margin-top: -6px;
+    border-left: 0; 
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid transparent;
+    border-right: 6px solid #3b3b3b;
+}
+
+#menu ul li:first-child a:hover:after {
+    border-bottom-color: #04acec; 
+}
+
+#menu ul ul li:first-child a:hover:after {
+    border-right-color: #0299d3; 
+    border-bottom-color: transparent;   
+}
+
+#menu ul li:last-child > a {
+    border-radius: 0 0 3px 3px;
+}
+        </style>
+       
+        <div class="container">
+                 
+			<header class="clearfix">
+                       
+				<span>MedicalDeal</span>
+                              
+				<h1>Gestion Cabinet Dentaire</h1>
+                          
+                            
+			</header>	
+          		
+		</div>
+        <h:form>
+         <ul id="menu">
+ 	<li><a href="#">Patient</a>
+		<ul>
+                    
+                    <li><p:commandLink action="#{clientController.prepareCreatePatient()}" rendered="#{authetification.flagpatient}" immediate="true" ajax="true" value="Creation Patient"></p:commandLink></li>
+                    <li><p:commandLink action="#{clientController.prepareList('ListClient')}"  immediate="true" ajax="true" value="Liste Patient"></p:commandLink></li>
+                    <li><p:commandLink action="#{imagesclientController.prepareList()}" rendered="#{authetification.flag2imagespatient}" ajax="true" value="Images Patient"></p:commandLink></li>
+                    <li><p:commandLink action="#{rendezvousController.prepareList()}" ajax="true"  value="Rendez Vous"></p:commandLink></li>
+	            <li><p:commandLink action="#{antecedantController.prepareList()}" ajax="true" value="Antecedant"></p:commandLink></li>
+		</ul>
+	</li>
+            
+  	<li><a href="#">Fournisseur</a>
+		<ul>
+                      <li><p:commandLink action="#{clientController.prepareCreateFournisseur()}" immediate="true" ajax="true" value="Creation Fournisseur"></p:commandLink></li> 
+                 <li><p:commandLink action="#{clientController.prepareList('ListFournisseur')}" immediate="true" ajax="true" value="Liste Fournisseur"></p:commandLink></li>
+                   
+                </ul>
+	</li>
+                    <li><a href="#">Tiers</a>
+		<ul>
+                    <li><p:commandLink action="#{clientController.prepareCreateTiers()}" immediate="true" ajax="true" value="Creation Tiers"></p:commandLink></li>
+                     <li><p:commandLink action="#{clientController.prepareList('ListTiers')}" immediate="true" ajax="true" value="List Tiers"></p:commandLink></li>
+                   
+                </ul>
+	</li>
+                    <li><a href="#">Produit </a>
+		<ul>
+                    <li><p:commandLink action="#{produitController.prepareList()}" ajax="true" value="Produit"></p:commandLink></li>
+                    <li><p:commandLink action="#{categorieproduitController.prepareList()}" ajax="true" value="Categorie Produit"></p:commandLink></li>
+                    <li><p:commandLink action="#{uniteController.prepareList()}" ajax="true" value="Unite"></p:commandLink></li>
+			
+		</ul>
+	</li>
+	<li><a href="#">Occurences</a>
+		<ul>
+                   
+                    <li><p:commandLink action="#{conventionController.prepareList()}" ajax="true" value="Convention"></p:commandLink></li>
+                    <li><p:commandLink action="#{modereglementController.prepareList()}" ajax="true" value="Mode Reglement"></p:commandLink></li>
+                    <li><p:commandLink action="#{nationaliteController.prepareList()}" ajax="true" value="Nationalite"></p:commandLink></li>
+                    <li><p:commandLink action="#{paysController.prepareList()}" ajax="true" value="Pays"></p:commandLink></li>
+                    <li><p:commandLink action="#{professionController.prepareList()}" ajax="true" value="Profession"></p:commandLink></li>
+                    <li><p:commandLink action="#{typeantecedantController.prepareList()}" ajax="true" value="Type Antecedant"></p:commandLink></li>
+                    <li><p:commandLink action="#{villeController.prepareList()}" ajax="true" value="Ville"></p:commandLink></li>
+                    <li><p:commandLink action="#{banqueController.prepareList()}" ajax="true" value="Banque"></p:commandLink></li>
+                    <li><p:commandLink action="#{familleController.prepareList()}" ajax="true" value="Famille"></p:commandLink></li>
+		    <li><p:commandLink action="#{laboratoireController.prepareList()}" ajax="true" value="Laboratoire"></p:commandLink></li>
+                    <li><p:commandLink action="#{acteController.prepareList()}" ajax="true" value="Acte"></p:commandLink></li>
+                    <li><p:commandLink action="#{familleacteController.prepareList()}" ajax="true" value="Famille Acte"></p:commandLink></li>
+                    <li><p:commandLink action="#{dentController.prepareList()}" ajax="true" value="Dent"></p:commandLink></li>
+                    <li><p:commandLink action="#{medicamentController.prepareList()}" ajax="true" value="Medicament"></p:commandLink></li>
+
+                </ul>
+	</li>
+	<li><a href="#">Administration</a>
+		<ul>
+                    <li><p:commandLink action="#{classeClientController.prepareList()}" ajax="true" value="Classe Patient"></p:commandLink></li>
+                    <li><p:commandLink action="#{userController.prepareList()}" ajax="true" value="Utilisateur"></p:commandLink></li>
+                    <li><p:commandLink action="#{tvaController.prepareList()}" ajax="true" value="TVA"></p:commandLink></li>
+                    <li><p:commandLink action="#{typeclientController.prepareList()}" ajax="true" value="Type Client"></p:commandLink></li>
+                    <li><p:commandLink action="#{depotController.prepareList()}" ajax="true" value="Depot"></p:commandLink></li>
+                  <li><p:commandLink action="#{sexeController.prepareList()}" ajax="true" value="Gendre"></p:commandLink></li>
+                   
+                </ul>
+	</li>
+	<li><a href="#">Operation</a>
+		<ul>
+                  
+                    <li><p:commandLink action="#{typeoperationController.prepareList()}" ajax="true" value="Type Operation"></p:commandLink></li>
+                    <li><p:commandLink action="#{operationController.prepareCreateDivers()}" ajax="true" value="Depense Divers"></p:commandLink></li>
+                    <li><p:commandLink action="#{operationController.prepareListDivers()}" ajax="true" value="Liste Dep Divers"></p:commandLink></li>
+                   
+                    <li><p:commandLink action="#{operationController.prepareCreateFournisseur()}" ajax="true" value="Depense Fournisseurs"></p:commandLink></li>
+                    <li><p:commandLink action="#{operationController.prepareListFournisseur()}" ajax="true" value="Liste Dep Fournisseurs"></p:commandLink></li>
+                
+                    <li><p:commandLink action="#{operationController.prepareCreateConsultation()}" ajax="true" value="Creation Consultation"></p:commandLink></li>
+                    <li><p:commandLink action="#{operationController.prepareListConsultation()}" ajax="true" value="Liste Consultation"></p:commandLink></li>
+         <li><p:commandLink action="#{operationController.prepareListOrdonance()}" ajax="true" value="Liste Ordonances"></p:commandLink></li>
+
+                 
+
+		</ul>
+	</li>
+                    
+                    <li><a href="#">Reglement</a>
+		<ul>
+                        <li><p:commandLink  action="#{reglementComController.acceePrepareCreateReglementClient()}"  ajax="true" value="Reglement Patient"></p:commandLink></li>
+                        <li><p:commandLink  action="#{reglementComController.acceePrepareListReglementFromCreate()}"  ajax="true" value="Liste Reglement"></p:commandLink></li>
+                        <li><p:commandLink  action="#{reglementComController.etatReglement()}"  ajax="true" value="Etat Reglement"></p:commandLink></li>
+                          <li><p:commandLink  action="#{reglementComController.etatDepense()}"  ajax="true" value="Etat Depense"></p:commandLink></li>
+                 <li><p:commandLink  action="#{reglementComController.etatExtraitPatient()}"  ajax="true" value="Extrait Patient"></p:commandLink></li>
+                  <li><p:commandLink  action="#{reglementComController.etatCaisse()}"  ajax="true" value="Etat Caisse"></p:commandLink></li>
+               <li><p:commandLink  action="#{reglementComController.etatReglementNonSolde()}"  ajax="true" value="Etat Visite Non reglé"></p:commandLink></li>
+              
+         
+                  
+
+		</ul>
+	</li>
+                    <li><a href="#">Cabinet</a>
+		<ul>
+                    <li><p:commandLink action="#{cabinetController.prepareList()}"  ajax="true" value="Cabinet"></p:commandLink></li>
+                   
+
+		</ul>
+	</li>
+                          <li><a href="#">Rapports</a>
+		<ul>
+                    <li><p:commandLink action="#{modeleRapportComController.prepareCreate()}" ajax="true" value="Ajouter Generateur "></p:commandLink></li>
+                              <li><p:commandLink action="#{modeleRapportComController.prepareList()}" ajax="true" value="Liste Generateur "></p:commandLink></li>
+                             <li><p:commandLink action="#{modeleRapportComController.prepareDuplicate()}" ajax="true" value="Dupplication Generateur"></p:commandLink></li>
+                             <li><p:commandLink action="#{modelesortieController.prepareList()}" ajax="true" value="Occurences"></p:commandLink></li>
+                             <li><p:commandLink action="#{duppliquerRapportController.accesDupplication()}" ajax="true" value="Dupplication Rapport"></p:commandLink></li>
+
+
+		</ul>
+	</li>
+</ul>
+            </h:form>
+        <p>
+            <ui:insert name="body"></ui:insert>
+        </p>
+    </h:body>
+
+</html>

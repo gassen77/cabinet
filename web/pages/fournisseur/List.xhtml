@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <p:growl id="growl" showDetail="true"/>
+                <p:panel   toggleable="true" header="Liste des Fournisseurs">      
+                    <p:dataTable emptyMessage="Liste Vide" value="#{fournisseurController.items}" var="item" style="border:solid 1px" > 
+                            
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="code"/>
+                            </f:facet>
+                            <h:outputText value="#{item.code}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="nom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="matricule fiscale"/>
+                            </f:facet>
+                            <h:outputText value="#{item.matriculefiscale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="adresse"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adresse}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="code postale"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codepostale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="tel"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tel}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="fax"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fax}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="mail"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mail}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="por"/>
+                            </f:facet>
+                            <h:outputText value="#{item.por}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="date creation"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datecreation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            
+                        </p:column>
+                     
+                      
+                       
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ville"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ville.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="nationalite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nationalite.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="Action">
+                                <h:commandButton style="position: relative!important;left: 70%!important;" value="Rechercher" action="#{fournisseurController.rechercherListItems()}"/>
+
+                            </f:facet>
+                          
+                             <h:commandLink  action="#{fournisseurController.prepareEdit}" title="Modifier"><h:graphicImage value="/img/modifier.gif" style="border:0px;"/></h:commandLink>
+                            <h:outputText value=" "/>
+                            <h:commandLink  action="#{fournisseurController.destroy}" title="Supprimer"><h:graphicImage value="/img/supprimer.gif" style="border:0px;" /></h:commandLink>
+                   
+                        </p:column>
+                         <f:facet name="footer">
+                            <center>
+                            <h:commandLink title="Premiere Page" action="#{fournisseurController.premierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_premiere_page.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="precedant" action="#{fournisseurController.previous()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_precedant.png"/>
+                            </h:commandLink>
+                            #{fournisseurController.pagination.currentPage()}..#{fournisseurController.pagination.totalPages()}
+                            <h:commandLink title="suivant" action="#{fournisseurController.next()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_suivant.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="Derniere Page" action="#{fournisseurController.dernierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_derniere_page.png"/>
+                            </h:commandLink>
+                            </center><br/>
+                            <center>
+                                <p:inputText size="5" value="#{fournisseurController.pageDestination}"/>
+                                <h:commandButton value="Page" title="Derniere Page" action="#{fournisseurController.goPageDestination()}"/>
+                            </center>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <br />
+          &nbsp;&nbsp;<h:commandLink action="#{fournisseurController.prepareCreate}" title="creer"><h:graphicImage value="/img/file_add.png" style="border:0px;"/></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+           
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

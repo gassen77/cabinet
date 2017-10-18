@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{reglementComController.mesg}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+    
+            <h:form>
+                <p:growl id="growl" showDetail="true"/> 
+                <p:panel id="panel012"  toggleable="true" header="Afficher #{reglementComController.mesg}" >
+                    
+                    <h:panelGrid columns="2" >
+                        
+                         <h:outputLabel value="Point de vente "  />
+                            
+                         <h:outputLabel id="PV" value=":  #{reglementComController.selected.niPv.nomPv}"   />
+                            
+                        
+                       
+                  
+                        <h:outputLabel value=" Nom #{reglementComController.nomCF}" />
+                        <h:outputLabel  id="cln"   value=":  #{reglementComController.selected.niTi.nomTi}"   />
+                                  
+                        
+                        <h:outputLabel value="Code #{reglementComController.nomCF}" />
+                        <h:outputLabel  id="clc"   value=":  #{reglementComController.selected.niTi.codeTi}" />
+                            
+        
+  
+                       
+                      
+                     
+                         <h:outputLabel value="Mode"/>
+                         <h:outputLabel id="MOp" value=":  #{reglementComController.selected.niMr.nomMr}" />
+                           
+                         
+                         <h:outputLabel value="Date" />
+                         <h:outputText  value="#{reglementComController.selected.dateSys}" ><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+                        
+                        <h:outputLabel value="Ech&eacute;ance"/>
+                        <h:outputText value="#{reglementComController.selected.echanceOp}"> <f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+                        
+                        <h:outputLabel value="Reference" />
+                       <h:outputLabel id="RE" value="#{reglementComController.selected.referenceOp}"  />
+                         
+                        
+                        <h:outputLabel value="Banque" />
+                        <h:outputLabel id="MO" value=":  #{reglementComController.selected.niBanque.nomBanque}" />
+                            
+                        
+                          
+                          
+                        <h:outputLabel value="Recu" />
+                       <h:outputLabel id="REC" value=":  #{reglementComController.selected.recuOp}" />
+                        
+                        
+                        <h:outputLabel value="Montant"  />
+                        <h:outputLabel id="MON" value=":  #{reglementComController.selected.montantCop}"  />
+                         
+                         
+                        <h:outputLabel value="Emetteur" />
+                       <h:outputLabel  id="EM"    />
+                        
+                           
+                        <h:outputLabel value="Caissier" />
+                        <h:outputLabel id="MOk" value=":  #{reglementComController.selected.niCai.nomCai}"   />
+                            
+                        
+                   
+                    
+ </h:panelGrid>
+                  
+                       
+            
+                    
+            </p:panel>
+                <br />
+                <h:commandLink rendered="#{authetification.supprimer}" action="#{reglementComController.destroyReglement()}" title="Supprimer"><h:graphicImage value="/img/icone_supprimer32.gif" style="border:0px;" /></h:commandLink>
+                
+                <h:commandLink action="Edit" title="Modifier"><h:graphicImage value="/img/icone_modifier321.png" style="border:0px;" /></h:commandLink>
+           
+                <h:commandLink action="#{reglementComController.prepareCreateReglement()}"   ><h:graphicImage value="/img/add_user32.gif" style="border:0px;" /></h:commandLink>
+              
+                <h:commandLink action="#{reglementComController.prepareListReglement()}"  ><h:graphicImage value="/img/show_List32.png" style="border:0px;" /></h:commandLink>
+                <br />
+                <br />
+                <h:commandLink value="Index" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

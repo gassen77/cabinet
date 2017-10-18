@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{factureComController.page}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <script> 
+                function handleDrop(event, ui) {
+                    var draggable = ui.draggable, //draggable element, a jQuery object
+                    helper = ui.helper, //helper element of draggable, a jQuery object
+                    position = ui.position, //position of draggable helper
+                    offset = ui.offset; //absolute position of draggable helper
+                    var chaine=document.getElementById("f1:topLeft").value;
+                    var idCompo=idComponent(event.target.id);
+                    var posCompo=findIdCompoPosition(chaine,idCompo);
+                    if(posCompo!=-1){
+                        var ch1=chaine.substr(0,posCompo);
+                        var longeur=findLongeurChaineModifIdCompo(chaine,idCompo);
+                        var chaineSup=chaine.substr(posCompo,longeur);
+                        var chaineAcc=ch1+chaineSup;
+                        var posFin=chaineAcc.length;
+                        var ch2=chaine.substr(posFin,chaine.length);
+                        
+                        var posHeight=widthLongeurExiste(chaineSup);
+                        if(posHeight!=-1){
+                        var chaineAuxWidHei=chaineSup.substr(posHeight,chaineSup.length);
+                        chaine=ch1+idCompo+"/"+offset.top+"/"+offset.left+chaineAuxWidHei+ch2;
+                        }else{
+                        chaine=ch1+idCompo+"/"+offset.top+"/"+offset.left+ch2;
+                        }
+                    }else{
+                        if(chaine.length>0){
+                            chaine=chaine+idCompo+"/"+offset.top+"/"+offset.left+"**";
+                        }else{
+                            chaine=chaine+"**"+idCompo+"/"+offset.top+"/"+offset.left+"**";
+                        }
+                        
+                    }
+                    document.getElementById("f1:topLeft").value=chaine;
+                    document.getElementById("f1:topLeft").fireEvent("onchange");
+                    document.getElementById("f1:compo").value=idCompo;
+                }
+                function idComponent(obje){
+                    var head=obje.lastIndexOf("_header");
+                    var cont=obje.lastIndexOf("_content");
+                    var newChaine=obje;
+                    if(head!=-1){
+                        newChaine=obje.substr(0,head);
+                    }
+                    if(cont!=-1){
+                        newChaine=obje.substr(0,cont);
+                    }
+                    return newChaine;
+                }
+                function findIdCompoPosition(objec,objec2){
+                    return objec.indexOf(objec2,0);
+                }
+                function findLongeurChaineModifIdCompo(objec,objec2){
+                    var posDeb=findIdCompoPosition(objec,objec2);
+                    if(posDeb>=0){
+                    var posFin=objec.indexOf("**",posDeb);
+                    return posFin-posDeb;
+                    }else{
+                        return -1;
+                    }
+                }
+                function widthLongeurExiste(objec){
+                    var posId=objec.indexOf("/",0);
+                    var posTop=objec.indexOf("/",posId+1);
+                    var posLeft=objec.indexOf("/",posTop+1);
+                    if(posLeft!=-1){
+                        return posLeft;
+                    }else{
+                        return -1;
+                    }
+                }
+                function handleStop(event, ui) {
+                    var position=ui.position;
+                    var size=ui.size;
+                    var compo=document.getElementById("f1:compo").value;
+                    var chaine=document.getElementById("f1:topLeft").value;
+                    var idCompo=idComponent(compo);
+                    var posCompo=findIdCompoPosition(chaine,idCompo);
+                    var lengthChaine=findLongeurChaineModifIdCompo(chaine,compo);
+                    var chaineCompo=chaine.substr(posCompo,lengthChaine);
+                    var ch1=chaine.substr(0,posCompo);
+                    var ch2=chaine.substr(posCompo+chaineCompo.length,chaine.length);
+                        var posTop=chaineCompo.indexOf("/",0);
+                        var posLeft=chaineCompo.indexOf("/",posTop+1);
+                        var posHeight=chaineCompo.indexOf("/",posLeft+1);
+                        if(posHeight!=-1){
+                            var ch11=chaineCompo.substr(0,posHeight);
+                            chaine=ch1+ch11+"/"+size.height+"/"+size.width+ch2;
+                        }else{
+                            chaine=ch1+chaineCompo+"/"+size.height+"/"+size.width+ch2;;
+                        }
+                        document.getElementById("f1:topLeft").value=chaine;
+                   }
+                function handleStopHeader(event, ui) {
+                    var size=ui.size;
+                    var position=ui.position;
+                    //var offset = ui.offset;
+                        document.getElementById("f1:header21").value=position.top+"/"+position.left+"/"+size.height+"/"+size.width;
+                        document.getElementById("f1:header21").fireEvent("onchange");
+                }
+                function handleStopBody(event, ui) {
+                    var size=ui.size;
+                    var position=ui.position;
+                    //var offset = ui.offset;
+                        document.getElementById("f1:body21").value=position.top+"/"+position.left+"/"+size.height+"/"+size.width;
+                        document.getElementById("f1:body21").fireEvent("onchange");
+                }
+                function handleStopFooter(event, ui) {
+                    var size=ui.size;
+                    var position=ui.position;
+                    //var offset = ui.offset;
+                        document.getElementById("f1:footer21").value=position.top+"/"+position.left+"/"+size.height+"/"+size.width;
+                        document.getElementById("f1:footer21").fireEvent("onchange");
+                }
+            </script>
+            <style type="text/css">
+            .slot3 {
+                border: solid;
+                width:595px;
+                height:250px;
+            display:block;
+            position: absolute;
+            top: 700px;
+            left: 10px;
+            
+            }
+            .slot1 {
+                border: solid;
+                width:595px;
+                height:250px;
+            display:block;
+            position: absolute;
+            top: 100px;
+            left: 10px;
+            }
+            .slot2 {
+                border: solid;
+                width:595px;
+                height:250px;
+            display:block;
+            position: absolute;
+            top: 400px;
+            left: 10px;
+            }
+            </style>
+            <h:panelGroup id="messagePanel" layout="block">
+                <p:growl/>
+            </h:panelGroup>
+            <h:form id="f1">
+                <h:inputText valueChangeListener="#{rapportFactureController.changeLeftTop}" size="100" id="topLeft"/>
+                <h:inputText id="compo" value=""/>
+                <h:inputText valueChangeListener="#{rapportFactureController.changeHeader}" size="20" id="header21"/>
+                <h:inputText valueChangeListener="#{rapportFactureController.changeBody}" size="20" id="body21"/>
+                <h:inputText valueChangeListener="#{rapportFactureController.changeFooter}" size="20" id="footer21"/>
+                <br/>
+                <p:selectBooleanButton value="#{rapportFactureController.libelleColonne}" onLabel="Libelle Colonne" offLabel="Sans Libelle Colonne"/>
+                <p:selectBooleanButton value="#{rapportFactureController.borderColonne}" onLabel="Border Colonne" offLabel="Sans Border Colonne"/>
+                <p:commandButton value="positions" oncomplete="confirmationDialog.show();"/>
+                <br/>
+                <p:panel styleClass="slot1" id="zone">
+                    <h:outputText value="header"/>
+                    <p:droppable onDrop="handleDrop">
+                    </p:droppable>
+                    <p:resizable handles="s,n" onStop="handleStopHeader(event, ui)"/>
+                </p:panel>
+                <p:panel styleClass="slot2" id="body1">
+                    <h:outputText value="body"/>
+                    <p:droppable onDrop="handleDrop">
+                    </p:droppable>
+                    <p:resizable handles="s,n" onStop="handleStopBody(event, ui)"/>
+                    </p:panel>
+                <p:panel styleClass="slot3" id="footer2">
+                    <h:outputText value="footer"/>
+                    <p:droppable onDrop="handleDrop">
+                    </p:droppable>
+                    <p:resizable handles="s,n" onStop="handleStopFooter(event, ui)"/>
+                </p:panel>
+                <p:panelGrid style="float: right;" columns="1">
+                <p:panel style="width: 100px;" id="Produit">
+                    <h:outputLabel value="Produit"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                <p:panel style="width: 100px;" id="Quantite">
+                    <h:outputLabel value="Quantite"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab1"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                <p:panel style="width: 100px;" id="Tva">
+                    <h:outputLabel value="T.V.A"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab2"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                <p:panel style="width: 100px;" id="TotalTTC">
+                    <h:outputLabel value="Total TTC"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab3"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                <p:panel style="width: 100px;" id="Remise">
+                    <h:outputLabel value="Remise"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab4"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                <p:panel style="width: 100px;" id="Prix">
+                    <h:outputLabel value="Prix"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab5"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                    <p:panel style="width: 100px;" id="Societe">
+                    <h:outputLabel value="Societe"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab6"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                    <p:panel style="width: 100px;" id="Adresse">
+                    <h:outputLabel value="Adresse"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab7"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                    <p:panel style="width: 100px;" id="Fax">
+                    <h:outputLabel value="Fax"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab8"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                    <p:panel style="width: 100px;" id="Tel">
+                    <h:outputLabel value="Tel"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab9"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                    <p:panel style="width: 100px;" id="Client">
+                    <h:outputLabel value="Client"/>
+                    <p:draggable revert="true" grid="2,2" widgetVar="ab10"/>
+                    <p:resizable handles="s,n,e,w" onStop="handleStop(event, ui)"/>
+                </p:panel>
+                </p:panelGrid>
+                    <br/>
+            </h:form>
+            <h:form>
+                <p:dialog draggable="false"  header="Confirmation" widgetVar="confirmationDialog" resizable="true"
+                              showEffect="explode" hideEffect="explode">
+                        <center>
+                            <h:panelGrid columns="2">
+                            <h:outputText value="Taille Police Des Label"/>
+                            <h:inputText value="#{rapportFactureController.fontSize}"/>
+                            <h:outputText value="Taille Police"/>
+                            <h:inputText value="#{rapportFactureController.fontSize}"/>
+                            <h:outputText value="Hauteur de la Page"/>
+                            <h:inputText value="#{rapportFactureController.heightPage}"/>
+                            <h:outputText value="Numero Interne De La Facture"/>
+                            <h:inputText value="#{rapportFactureController.valeurNiOperation}"/>
+                            </h:panelGrid>
+                            <h:commandButton action="#{rapportFactureController.poss}" value="Previsualiser le rapport"/>
+                        </center>
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

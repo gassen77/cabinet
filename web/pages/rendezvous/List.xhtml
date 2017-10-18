@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <p:growl id="growl" showDetail="true"/>
+                <p:panel   toggleable="true" header="Liste des Rendez Vous" style="font-size: 20px;"> 
+                    <p:dataTable emptyMessage="Liste Vide" value="#{rendezvousController.items}"  var="item" style="border:solid 1px"  > 
+                       
+                   
+                      
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date rendezvous" style="font-size: 20px;"/>
+                            </f:facet>
+                           
+                               <p:calendar disabled="true" pattern="dd/MM/yyyy" style="font-size: 20px;" value="#{item.daterendezvous}">
+                        </p:calendar> 
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Heure rendezvous" style="font-size: 20px;" />
+                            </f:facet>
+                          
+                            <p:calendar disabled="true" pattern="dd/MM/yyyy" style="font-size: 20px;" value="#{item.heurerendezvous}">
+                        </p:calendar> 
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Raison" style="font-size: 20px;"/>
+                            </f:facet>
+                            <h:outputText value="#{item.raison}" style="font-size: 20px;" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Client" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.client.nom}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="Action">
+              <h:commandButton style="position: relative!important;left: 70%!important;" value="Rechercher" action="#{rendezvousController.rechercherListItems()}"/>
+
+                            </f:facet>
+                          
+                             <h:commandLink  action="#{rendezvousController.prepareEdit}" title="Modifier"><h:graphicImage value="/img/modifier.gif" style="border:0px;"/></h:commandLink>
+                            <h:outputText value=" "/>
+                            <h:commandLink  action="#{rendezvousController.destroy}" title="Supprimer"><h:graphicImage value="/img/supprimer.gif" style="border:0px;" /></h:commandLink>
+                   
+                        </p:column>
+                         <f:facet name="footer">
+                            <center>
+                            <h:commandLink title="Premiere Page" action="#{rendezvousController.premierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_premiere_page.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="precedant" action="#{rendezvousController.previous()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_precedant.png"/>
+                            </h:commandLink>
+                            #{rendezvousController.pagination.currentPage()}..#{rendezvousController.pagination.totalPages()}
+                            <h:commandLink title="suivant" action="#{rendezvousController.next()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_suivant.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="Derniere Page" action="#{rendezvousController.dernierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_derniere_page.png"/>
+                            </h:commandLink>
+                            </center><br/>
+                            <center>
+                                <p:inputText size="5" value="#{rendezvousController.pageDestination}"/>
+                                <h:commandButton value="Page" title="Derniere Page" action="#{rendezvousController.goPageDestination()}"/>
+                            </center>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <br />
+          &nbsp;&nbsp;<h:commandLink action="#{rendezvousController.prepareCreate}" title="creer"><h:graphicImage value="/img/file_add.png" style="border:0px;"/></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+           
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

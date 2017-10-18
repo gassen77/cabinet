@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{reglementComController.mesg}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+           
+            <h:form id="formR1">
+                <p:growl id="growl" showDetail="true"/> 
+                <p:panel id="panel0121"  toggleable="true" header="Modifier #{reglementComController.mesg}" style="height: 300px;">
+                  
+                        
+                    <h:outputLabel value="Point de vente "  style="#{reglementComController.styleString('reglement','libellePointVente')}"/>
+                    <p:autoComplete  id="PV11"   value="#{reglementComController.selected.niPv}"  completeMethod="#{reglementComController.autocompletePV}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nomPv}" style="#{reglementComController.styleString('reglement','PointVente')}">
+                                    <h:column >#{result.nomPv}</h:column> 
+                                    <p:ajax event="itemSelect" update="PV11"/> 
+                                   
+                        </p:autoComplete>
+                  
+                        <h:outputLabel value=" Nom #{reglementComController.nomCF}" style="#{reglementComController.styleString('reglement','libelleNomClient')}"/>
+                       <p:autoComplete  id="cln1"   value="#{reglementComController.selected.niTi}"  completeMethod="#{reglementComController.autocompleteClient}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nomTi}" style="#{reglementComController.styleString('reglement','nomClient')}">
+                                    <h:column >#{result.nomTi}</h:column> 
+                                    <p:ajax event="itemSelect" update="cln1 clc1 :formR1" listener="#{reglementComController.changeClient()}"/> 
+                                     <f:facet name="itemtip">  
+                       <f:facet name="header">  
+                            <h:column >#{result.nomTi}</h:column>   </f:facet>  
+                        </f:facet>  
+                        </p:autoComplete>
+                        
+                        
+                        <h:outputLabel value="Code #{reglementComController.nomCF}" style="#{reglementComController.styleString('reglement','libelleCodeClient')}"/>
+                         <p:autoComplete  id="clc1"   value="#{reglementComController.selected.niTi}" completeMethod="#{reglementComController.autocompleteClient}"  var="result"  maxResults="10" size="15"   itemValue="#{result}" dropdown="true" itemLabel="#{result.codeTi}" style="#{reglementComController.styleString('reglement','codeClient')}" >
+                             <p:ajax event="itemSelect"  update="clc1 cln1 :formR1" listener="#{reglementComController.changeClient()}"/> 
+                                 </p:autoComplete>
+                       
+                      
+                     
+                         <h:outputLabel value="Mode" style="#{reglementComController.styleString('reglement','libelleMode')}"/>
+                         <p:autoComplete  id="MOp1"   value="#{reglementComController.selected.niMr}"  completeMethod="#{reglementComController.autocompleteModeReglement}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nomMr}" style="#{reglementComController.styleString('reglement','mode')}">
+                                    <h:column >#{result.nomMr}</h:column> 
+                                    <p:ajax event="itemSelect" update="MOp1 calecheance1 RE1 MO REC1 EM1" listener="#{reglementComController.changeModeReglement()}"/> 
+                        </p:autoComplete>
+                         
+                         <h:outputLabel value="Date" style="#{reglementComController.styleString('reglement','libelleDate')}"/>
+                         <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{reglementComController.selected.dateSys}" style="#{reglementComController.styleString('reglement','date')}"><f:ajax event="dateSelect" execute="@this"/></p:calendar>
+                        
+                        <h:outputLabel value="Ech&eacute;ance" style="#{reglementComController.styleString('reglement','libelleEcheance')}"/>
+                        <p:calendar  navigator="true"   id="calecheance1" pattern="dd/MM/yyyy" value="#{reglementComController.selected.echanceOp}" style="#{reglementComController.styleString('reglement','echeance')}" binding="#{reglementComController.inputTextEcheance}"><f:ajax event="dateSelect" execute="@this"/></p:calendar>
+                        
+                        <h:outputLabel value="Reference" style="#{reglementComController.styleString('reglement','libelleReference')}"/>
+                        <p:inputText id="RE1" value="#{reglementComController.selected.referenceOp}" style="#{reglementComController.styleString('reglement','reference')}" binding="#{reglementComController.inputTextReference}"> <f:ajax event="change" execute="@this"/></p:inputText>
+                         
+                        
+                        <h:outputLabel value="Banque" style="#{reglementComController.styleString('reglement','libelleBanque')}"/>
+                       
+                        <p:autoComplete  id="MO"   value="#{reglementComController.selected.niBanque}"  completeMethod="#{reglementComController.autocompleteBanqueCom}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nomBanque}" style="#{reglementComController.styleString('reglement','banque')}" binding="#{reglementComController.inputTextBanque}">
+                                    <h:column >#{result.nomBanque}</h:column> 
+                                    <p:ajax event="itemSelect" update="MO"/> 
+                        </p:autoComplete>
+                          
+                          
+                        <h:outputLabel value="Recu" style="#{reglementComController.styleString('reglement','libelleRecu')}"/>
+                        <p:inputText id="REC1" value="#{reglementComController.selected.recuOp}" style="#{reglementComController.styleString('reglement','recu')}" binding="#{reglementComController.inputTextRecu}"><f:ajax event="change" execute="@this"/></p:inputText>
+                        
+                        
+                        <h:outputLabel value="Montant" style="#{reglementComController.styleString('reglement','libelleMontant')}" />
+                        <p:inputText id="MON1" value="#{reglementComController.selected.montantCop}"  style="#{reglementComController.styleString('reglement','montant')}" >
+                            <p:ajax event="blur" update="MON1 :formR1" listener="#{reglementComController.changeMantant}"  />
+                            </p:inputText>
+                         
+                         
+                        <h:outputLabel value="Emetteur" style="#{reglementComController.styleString('reglement','libelleEmetteur')}"/>
+                        <p:inputText id="EM1"   style="#{reglementComController.styleString('reglement','emetteur')}" value="#{reglementComController.selected.emetteur}" binding="#{reglementComController.inputTextEmetteur}"><f:ajax event="change" execute="@this"/></p:inputText>
+                        
+                           
+                        <h:outputLabel value="Caissier" style="#{reglementComController.styleString('reglement','libelleCaissier')}"/>
+                       
+                        <p:autoComplete  id="MOk1"   value="#{reglementComController.selected.niCai}"  completeMethod="#{reglementComController.autocompleteCaissierCom}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nomCai}" style="#{reglementComController.styleString('reglement','caissier')}" >
+                                    <h:column >#{result.nomCai}</h:column> 
+                                    <p:ajax event="itemSelect" update="MOk1"/> 
+                        </p:autoComplete>
+                        
+
+            </p:panel>
+                <center> <h:outputText style="color: #ee0101;left:1000px;"  value="Reste :" /><h:outputText style="color: #ee0101;"  value="#{reglementComController.resteR}"/></center>
+                <br/>
+             
+      <br/>
+                <center>
+                    <p:dataTable emptyMessage="Liste Vide" value="#{reglementComController.lettrage}" rowIndexVar="rkv" var="cap"  binding="#{reglementComController.dataTableLettrage}"   >
+                        <p:column></p:column>
+                    
+                    </p:dataTable>
+                </center>
+</h:form> 
+                       
+                           
+                
+                
+                
+                
+                
+                
+                
+            
+            
+            <h:form>
+                &nbsp; &nbsp;
+                 <h:commandLink  action="#{reglementComController.updateReglement()}" title="Modifier"><h:graphicImage value="/img/sauvegarder32.gif" style="border:0px;" /></h:commandLink>
+               &nbsp; &nbsp;
+                <h:commandLink action="View" title="Afficher" immediate="true"><h:graphicImage value="/img/icone-loupe32.jpg" style="border:0px;"/></h:commandLink>
+             &nbsp; &nbsp;
+                <h:commandLink action="#{reglementComController.prepareListReglement()}" title="Liste des reglement" immediate="true"><h:graphicImage value="/img/show_List32.png" style="border:0px;"/> </h:commandLink>
+                &nbsp; &nbsp;
+                <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" style="border:0px;" /></h:commandLink>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

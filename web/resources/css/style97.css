@@ -1,0 +1,92 @@
+html { height: 100%;background-color: #d5d5d5; }
+
+body {
+    background: url("../images/bodyBg.png") repeat-y scroll center center #d5d5d5;
+    font-family: Arial,Verdan,Sans-Serif;
+    font-size: 75%;
+    height: 100%;
+    margin: auto;
+    width: 1024px;
+}
+#wrapper{
+    max-width: 1024px;
+	height: 100%;
+	margin: auto;
+}
+#logoProduit{
+    background: url("../images/logoProduit.png") repeat-y scroll center center;
+    max-width: 1024px;
+	height: 248px;
+	margin: auto;
+}
+
+#sceneProduit  {
+    background: url("../images/bgScene.png") no-repeat scroll center center transparent;
+    height: 181px;
+    margin: auto;
+    width: 751px;
+	padding-right: 18px;
+}
+
+#sceneProduit1{width:751px;margin: auto;height: 79px;}
+
+
+.sceneProduittd11 {color:#00a0e2;padding-left: 141px;padding-top: 18px;font-size: 11px;}
+.sceneProduittd12 {color:#00a0e2;padding-left: 10px;padding-top: 16px;font-size: 11px;}
+.sceneProduittd13 {color:#00a0e2;padding-left: 14px;padding-top: 16px;font-size: 11px;}
+.sceneProduittd14 {color:#00a0e2;padding-left: 10px;padding-top: 10px;font-size: 11px;}
+
+.sceneProduittd21 {color:#00a0e2;padding-left: 10px;padding-top: 13px;font-size: 11px;}
+.sceneProduittd22 {color:#00a0e2;padding-left: 7px;padding-top: 13px;font-size: 11px;}
+.sceneProduittd23 {color:#00a0e2;padding-left: 14px;padding-top: 13px;font-size: 11px;}
+.sceneProduittd24 {color:#00a0e2;padding-left: 6px;padding-top: 13px;font-size: 11px;}
+.sceneProduittd25 {color:#00a0e2;padding-left: 6px;padding-top: 15px;font-size: 11px;}
+
+
+.sceneProduittd11 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+.sceneProduittd12 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+.sceneProduittd13 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+.sceneProduittd14 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+
+.sceneProduittd21 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+.sceneProduittd22 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+.sceneProduittd23 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+.sceneProduittd24 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+.sceneProduittd25 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+
+.sceneProduittd11 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+.sceneProduittd12 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+.sceneProduittd13 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+.sceneProduittd14 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+
+.sceneProduittd21 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+.sceneProduittd22 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+.sceneProduittd23 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+.sceneProduittd24 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+.sceneProduittd25 a:hover{color:#0e82b7;font-size: 11px;text-decoration: none;text-decoration: underline;}
+
+.sceneProduittd3 a{color:#0e82b7;font-size: 11px;text-decoration: none}
+
+.sceneProduit11{background: url("../images/produit6.png") no-repeat;width: 256px;height: 79px;}
+.sceneProduit12{background: url("../images/produit7.png") no-repeat;width: 108px;height: 79px;}
+.sceneProduit13{background: url("../images/produit8.png") no-repeat;width: 101px;height: 79px;}
+.sceneProduit14{background: url("../images/produit9.png") no-repeat;width: 286px;height: 79px;}
+
+#sceneProduit2{width:751px;margin: auto;height: 78px;}
+
+.sceneProduit21{background: url("../images/produit1.png") no-repeat;width: 134px;height: 78px;}
+.sceneProduit22{background: url("../images/produit2.png") no-repeat;width: 152px;height: 78px;}
+.sceneProduit23{background: url("../images/produit3.png") no-repeat;width: 162px;height: 78px;}
+.sceneProduit24{background: url("../images/produit4.png") no-repeat;width: 161px;height: 78px;}
+.sceneProduit25{background: url("../images/produit5.png") no-repeat;width: 142px;height: 78px;}
+
+
+#sceneProduit3 {
+    background: url("../images/share.png") no-repeat scroll 0 center transparent;
+    color: #FFFFFF;
+    height: 16px;
+    margin: auto;
+    padding-left: 30px;
+    padding-top: 5px;
+    width: 680px;
+}

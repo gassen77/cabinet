@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDetailConventionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDetailConventionEmpty}" rendered="#{detailConventionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{detailConventionController.items.rowCount > 0}">
+                    <h:outputText value="#{detailConventionController.pagination.pageFirstItem + 1}..#{detailConventionController.pagination.pageLastItem + 1}/#{detailConventionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{detailConventionController.previous}" value="#{bundle.Previous} #{detailConventionController.pagination.pageSize}" rendered="#{detailConventionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{detailConventionController.next}" value="#{bundle.Next} #{detailConventionController.pagination.pageSize}" rendered="#{detailConventionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{detailConventionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_classeProduit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.classeProduit}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_remise}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.remise}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_prixHt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prixHt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_prixTtc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prixTtc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_prixMinHt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prixMinHt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_prixMinTtc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prixMinTtc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_classeClient}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.classeClient}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailConventionTitle_convention}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.convention}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{detailConventionController.prepareView}" value="#{bundle.ListDetailConventionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailConventionController.prepareEdit}" value="#{bundle.ListDetailConventionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailConventionController.destroy}" value="#{bundle.ListDetailConventionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{detailConventionController.prepareCreate}" value="#{bundle.ListDetailConventionCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListDetailConventionIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

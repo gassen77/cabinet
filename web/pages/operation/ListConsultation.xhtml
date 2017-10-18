@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+           
+        </ui:define>
+        <ui:define name="body">
+          
+           
+            <h:form styleClass="jsfcrud_list_form">
+                <p:growl id="growl" showDetail="true"/>
+                <p:panel   toggleable="true" header="Liste des Consultations"  style="font-size: 20px;">
+                    <center>
+                        <h:panelGrid columns="4"  cellpadding="10">
+                    <h:outputLabel value="Date d&eacute;but" />
+                       <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{operationController.dateDebut}"><p:ajax event="dateSelect" update="@this" /></p:calendar> 
+                     
+                     <h:outputLabel value="Date Fin" />
+                     <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{operationController.dateFin}"><p:ajax event="dateSelect" update="@this" /></p:calendar> 
+                 </h:panelGrid>
+                    </center>
+                    
+                    <p:dataTable emptyMessage="Liste Vide"  style="border:solid 1px"  var="item" value="#{operationController.items}"  > 
+                            
+                      
+                        <p:column>
+                             <f:facet name="header">
+                                <h:outputText value="Patient"/>
+                                <p:inputText value="#{operationController.clientFiltrage}" style = "width: 100%" />
+                            </f:facet>
+                            <h:outputText value="#{item.client.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Operation"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateoperation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                         <p:column>
+                             <f:facet name="header">
+                                <h:outputText value="Montant Operation"/>
+                                 <p:inputText value="#{operationController.montantoperationFiltrage}" style = "width: 100%" />
+                            </f:facet>
+                            <h:outputText value="#{item.montantoperation}"/>
+                        </p:column>
+                      
+                        
+                        
+                        
+                        
+                       
+                      
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Utilisateur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.user.login}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Libelle Operation"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libelleoperation}"/>
+                        </p:column>
+                        <p:column>
+                             <f:facet name="header">
+                                <h:outputText value="Numero Operation"/>
+  <p:inputText value="#{operationController.numerooperationFiltrage}" style = "width: 100%" />
+
+                            </f:facet>
+                            <h:outputText value="#{item.numerooperation}"/>
+                        </p:column>
+                        <p:column>
+                             <f:facet name="header">
+                                <h:outputText value="Actions"/>
+   <h:commandButton value="Rechercher" action="#{operationController.rechercheMultipleCriteres()}"/>
+                        
+                            </f:facet>
+                          
+                            <h:commandLink  action="#{operationController.prepareEditConsultation}" title="Modifier"><h:graphicImage value="/img/modifier.gif" style="border:0px;"/></h:commandLink>
+                            <h:outputText value=" "/>
+                                <p:commandLink ajax="false"  title="Pdf" action="#{operationController.rapportConsultation}"> <h:graphicImage value="/img/logo_pdf.png" style="border:0px;" /></p:commandLink>
+                 &nbsp;&nbsp; 
+                            <h:commandLink  action="#{operationController.destroy}" title="Supprimer"><h:graphicImage value="/img/supprimer.gif" style="border:0px;" /></h:commandLink>
+                   
+                        </p:column>
+                         <f:facet name="footer">
+                            <center>
+                            <h:commandLink title="Premiere Page" action="#{operationController.premierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_premiere_page.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="precedant" action="#{operationController.previous()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_precedant.png"/>
+                            </h:commandLink>
+                            #{operationController.pagination.currentPage()}..#{operationController.pagination.totalPages()}
+                            <h:commandLink title="suivant" action="#{operationController.next()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_suivant.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="Derniere Page" action="#{operationController.dernierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_derniere_page.png"/>
+                            </h:commandLink>
+                            </center><br/>
+                            <center>
+                                <p:inputText size="5" value="#{operationController.pageDestination}"/>
+                                <h:commandButton value="Page" title="Derniere Page" action="#{operationController.goPageDestination()}"/>
+                            </center>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <br />
+                &nbsp;&nbsp;<h:commandLink action="#{operationController.prepareCreateConsultation}" title="creer"><h:graphicImage value="/img/file_add.png" style="border:0px;"/></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+            &nbsp;&nbsp;  <p:commandLink ajax="false"  title="Pdf" action="#{operationController.impressionPdfListOperations}"> <h:graphicImage value="/img/logo_pdf.png" style="border:0px;" /></p:commandLink>
+              
+                       
+                        
+                       
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

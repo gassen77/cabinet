@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" Duplication Mod&egrave;le Rapport"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+          
+            <h:form id="f1">
+                <p:growl id="growl" showDetail="true" sticky="true" />  
+                <p:panel header="Duplication Mod&egrave;le  ">
+                    
+                    <h:panelGrid columns="4" cellspacing="10" >
+                       
+                        <h:outputLabel value="Format Origine" for="nomModele" />
+                        
+                        <p:selectOneMenu value="#{modeleRapportComController.modelesource}" effect="fade" style="width: 280px;"  >  
+               <f:selectItem itemLabel="---" itemValue="---"/>
+           
+                            <f:selectItems value="#{modeleRapportComController.sourcesvalues}" var="model" itemLabel="#{model.nomModele}" itemValue="#{model}"/>  
+           <p:ajax event="change" update="@this,typeOperation" /> 
+                        </p:selectOneMenu> 
+                        <h:outputLabel value="Type" for="typeOperation" />
+                        
+                             <p:inputText   id="typeOperation" value="#{modeleRapportComController.modelesource.typeOperation.nomTop}"  disabled="true"  >
+                                    
+                             </p:inputText>
+                           <h:outputLabel value="Format Destination" for="nomModeledest" />
+                           <p:inputText id="nomModeledest" style="width: 280px;"  value="#{modeleRapportComController.modeledest.nomModele}"  required="true" requiredMessage="Nom Modele Dupliqué Vide Ou Invalide"  />
+                             <h:outputLabel value="Type" for="typeOperationdest" />
+                        
+                             <p:autoComplete   id="typeOperationdest" value="#{modeleRapportComController.modeledest.typeOperation}"  completeMethod="#{modeleRapportComController.autocompleteTypeOpCom}"  var="result"  maxResults="10" size="20"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nomTop}" style="margin-left: 10px" >
+                                    <h:column >#{result.nomTop}</h:column> 
+                                    <p:ajax event="itemSelect" update="typeOperationdest" /> 
+                      </p:autoComplete>      
+                          </h:panelGrid>
+                    </p:panel>
+                    
+                    
+               
+                     <br/>
+                     &nbsp; &nbsp;<h:commandLink  action="#{modeleRapportComController.duplicate()}" title="Sauvegarder" ><h:graphicImage value="/img/sauvegarder32.gif" style="border:0px;" /></h:commandLink>
+                    &nbsp; &nbsp;<h:commandLink immediate="true" action="#{modeleRapportComController.prepareList()}" title="Liste"><h:graphicImage value="/img/show_List32.png" style="border:0px;" /></h:commandLink>
+                    &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>  
+             
+                 </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAntecedantTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAntecedantLabel_id}"/>
+                    <h:outputText value="#{antecedantController.selected.id}" title="#{bundle.ViewAntecedantTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewAntecedantLabel_code}"/>
+                    <h:outputText value="#{antecedantController.selected.code}" title="#{bundle.ViewAntecedantTitle_code}"/>
+                    <h:outputText value="#{bundle.ViewAntecedantLabel_libelle}"/>
+                    <h:outputText value="#{antecedantController.selected.libelle}" title="#{bundle.ViewAntecedantTitle_libelle}"/>
+                    <h:outputText value="#{bundle.ViewAntecedantLabel_typeantecedant}"/>
+                    <h:outputText value="#{antecedantController.selected.typeantecedant}" title="#{bundle.ViewAntecedantTitle_typeantecedant}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{antecedantController.destroyAndView}" value="#{bundle.ViewAntecedantDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewAntecedantEditLink}"/>
+                <br />
+                <h:commandLink action="#{antecedantController.prepareCreate}" value="#{bundle.ViewAntecedantCreateLink}" />
+                <br />
+                <h:commandLink action="#{antecedantController.prepareList}" value="#{bundle.ViewAntecedantShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewAntecedantIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

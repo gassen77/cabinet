@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Mod&egrave;le Sortie"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <style type="text/css">
+                #mon_div {
+                    height: 50px;
+                    position: fixed;
+                    bottom: 0px;
+                }
+                   .companyHeaderGrid tr, .companyHeaderGrid td {
+      border: none !important;
+      background: none !important;
+}
+            </style>
+            <h:panelGroup id="messagePanel" layout="block">
+                <p:growl/>
+            </h:panelGroup>
+            <h:form id="f1">
+                <p:panel header="Modification Mod&egrave;le Journal">
+                  
+                    <h:panelGrid columns="3">
+                        <h:panelGrid columns="2">
+                        <h:outputLabel value="Code"/>
+                        <p:inputText id="codeModeleSSortie" disabled="true" value="#{modelesortieController.selected.codeModeleSortie}"/>
+                        <h:outputLabel value="Libelle"/>
+                        <p:inputText id="libelleModeleSSortie" value="#{modelesortieController.selected.libelleModeleSortie}">
+                            <p:focus id="focusLibelleModeleSSortie" for="libelleModeleSSortie"/>
+                        </p:inputText>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" >
+                        <h:outputLabel value="R&egrave;glement"/>
+                        <p:selectBooleanButton value="#{modelesortieController.selected.reglementRapport}"  id="SelectReglementRapport" onLabel="Oui" offLabel="Non">
+                            <p:ajax event="change"  update="@this :f1:type1 type2 LibSizeReg ValSizeReg LibFontSizeReg ValFontSizeReg OrdreReg ValOrdreReg" />
+                       
+                        </p:selectBooleanButton>
+                        <h:outputLabel id="type1" style ="#{modelesortieController.styleReg()}" value="Type R&egrave;glement"/>
+                        <p:selectOneMenu id="type2" style ="#{modelesortieController.styleReg()}" value="#{modelesortieController.selected.reglement}">
+                            <f:selectItems value="#{modelesortieController.itemsAvailableSelectOneModeReglement}"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel style ="#{modelesortieController.styleReg()}" id="LibSizeReg" value="Longueur R&egrave;glement"/>
+                        <p:inputText  style ="#{modelesortieController.styleReg()}" id="ValSizeReg" value="#{modelesortieController.selected.longeurReglement}"/>
+                        <h:outputLabel style ="#{modelesortieController.styleReg()}" id="LibFontSizeReg" value="Taille Police R&egrave;glement"/>
+                        <p:inputText style ="#{modelesortieController.styleReg()}" id="ValFontSizeReg" value="#{modelesortieController.selected.fontSizeReglement}"/>
+                        <h:outputLabel style ="#{modelesortieController.styleReg()}" id="OrdreReg" value="Ordre R&egrave;glement"/>
+                        <p:inputText style ="#{modelesortieController.styleReg()}" id="ValOrdreReg" value="#{modelesortieController.selected.ordreReglement}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                        <h:outputLabel value="Solde"/>
+                        <p:selectBooleanButton value="#{modelesortieController.selected.solde}" id="SelectSolde" onLabel="Oui" offLabel="Non">
+                        <p:ajax event="change"  update="@this LibSizeSolde ValSizeSolde LibFontSizeSolde ValFontSizeSolde OrdreSolde ValOrdreSolde" />
+                        </p:selectBooleanButton>
+                        <h:outputLabel style ="#{modelesortieController.styleSolde()}" id="LibSizeSolde" value="Longueur Solde"/>
+                        <p:inputText style ="#{modelesortieController.styleSolde()}" id="ValSizeSolde" value="#{modelesortieController.selected.longueurSolde}"/>
+                        <h:outputLabel style ="#{modelesortieController.styleSolde()}" id="LibFontSizeSolde" value="Taille Police Solde"/>
+                        <p:inputText style ="#{modelesortieController.styleSolde()}" id="ValFontSizeSolde" value="#{modelesortieController.selected.fontSizeSolde}"/>
+                        <h:outputLabel style ="#{modelesortieController.styleSolde()}" id="OrdreSolde" value="Ordre Solde"/>
+                        <p:inputText style ="#{modelesortieController.styleSolde()}" id="ValOrdreSolde" value="#{modelesortieController.selected.ordreSolde}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+             
+                        <p:selectBooleanButton value="#{modelesortieController.selected.paysagePortait}" id="SelectPortPay" onLabel="Paysage" offLabel="Portrait"/>
+                   
+                </p:panel>
+                <h:panelGroup id="panelProdDetailsTable">
+                  
+                    <p:dataTable emptyMessage="Liste Vide" binding="#{modelesortieController.dataTableDetails}"  var="det" value="#{modelesortieController.detailsModele}"
+                                 rowKey="#{det.idDetailModeleSortie}"  scrollable="true" scrollHeight="700" 
+                                  id="prodDetailsTableModificationJournaux">
+                        <p:column headerText="">
+                              <f:facet name="header">
+                                <h:panelGrid style="width: 480px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Colonne"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                              <h:panelGrid style="width: 480px!important;border:none"  columns="2" styleClass="companyHeaderGrid">
+                            <h:outputText value="#{det.nomColonne} "/>
+                            <h:outputText rendered="#{(det.appelePar!=null)?((det.appelePar.length()>0)?true:false):false}" value=" (#{det.appelePar})"/>
+                          </h:panelGrid>
+                        </p:column>
+                        <p:column headerText="">  
+                             <f:facet name="header">
+                                <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Longueur du Champs"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            <center>
+    <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+
+                            <p:inputText value="#{det.longueurColonne}" style="width: 100px"/>
+                              </h:panelGrid>
+                            </center>
+                        </p:column>
+                        <p:column headerText="">  
+                             <f:facet name="header">
+                                <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Taille Police"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            <center>
+                                   <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                <p:inputText  style="width: 100px" value="#{det.fontSizeColonne}"/>
+                                 </h:panelGrid>
+                            </center>
+                        </p:column>
+                        <p:column headerText="">
+                              <f:facet name="header">
+                                <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Ordre"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            <center>
+                <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+
+                            <p:inputText  style="width: 100px" value="#{det.ordreColonne}"/>
+                                   </h:panelGrid>
+                            </center>
+                        </p:column>
+                        <p:column headerText="">
+                             <f:facet name="header">
+                                <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="S&eacute;lection"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            <center>
+                                <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                <p:selectBooleanButton value="#{modelesortieController.selct}" id="SelectCol" onLabel="Oui" offLabel="Non">
+                                </p:selectBooleanButton>
+                      </h:panelGrid>
+
+                            </center>
+                        </p:column>
+                        <p:column headerText="">
+                           <f:facet name="header">
+                                <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Sommable"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            
+                            <center>
+                                 <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                <p:selectBooleanButton value="#{det.sommable}" id="SelectSomm" onLabel="Oui" offLabel="Non">
+                                </p:selectBooleanButton>
+                                  </h:panelGrid>
+                            </center>
+                        </p:column>
+                        <p:column headerText="">
+                            <f:facet name="header">
+                                <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Filtrage"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            <center>
+               <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+
+                                <p:selectBooleanButton value="#{modelesortieController.filtrable}" id="SelectFiltrable" onLabel="Oui" offLabel="Non">
+                                </p:selectBooleanButton>
+                       </h:panelGrid>
+                            </center>
+                        </p:column>
+                        <p:column headerText="">
+                            <f:facet name="header">
+                                <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Ordonn&eacute;"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            <center>
+           <h:panelGrid style="width: 120px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+
+                                <p:selectBooleanButton value="#{det.orderByInstruction}" id="SelectOrderBy" onLabel="Oui" offLabel="Non">
+                                </p:selectBooleanButton>
+                    </h:panelGrid>
+                            </center>
+                        </p:column>
+                        <p:column headerText="">
+                             <f:facet name="header">
+                                <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+                                    <h:outputText value="Num&eacute;ro De L'ordre"></h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+                            <center>
+                <h:panelGrid style="width: 150px!important;border:none"  columns="1" styleClass="companyHeaderGrid">
+
+                                <p:inputText style="width: 100px" value="#{det.numeroDeOrderBy}"/>
+                                     </h:panelGrid>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                 
+                </h:panelGroup>
+                <div style="height: 150px;"></div>
+                <div id="mon_div">
+                    &nbsp; &nbsp;<h:commandLink rendered="#{modelesortieController.boutonModifier}" action="#{modelesortieController.updateJournaux()}" title="Modifier" ><h:graphicImage value="/img/sauvegarder32.gif" style="border:0px;" /></h:commandLink>
+                    &nbsp; &nbsp;<h:commandLink immediate="true" action="#{modelesortieController.prepareListJournaux()}" title="Liste"><h:graphicImage value="/img/show_List32.png" style="border:0px;" /></h:commandLink>
+                    &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

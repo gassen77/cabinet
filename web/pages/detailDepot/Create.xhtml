@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDetailDepotTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDetailDepotLabel_qte}" for="qte" />
+                    <h:inputText id="qte" value="#{detailDepotController.selected.qte}" title="#{bundle.CreateDetailDepotTitle_qte}" />
+                    <h:outputLabel value="#{bundle.CreateDetailDepotLabel_produit1}" for="produit1" />
+                    <h:selectOneMenu id="produit1" value="#{detailDepotController.selected.produit1}" title="#{bundle.CreateDetailDepotTitle_produit1}" required="true" requiredMessage="#{bundle.CreateDetailDepotRequiredMessage_produit1}">
+                        <f:selectItems value="#{produitController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDetailDepotLabel_depot1}" for="depot1" />
+                    <h:selectOneMenu id="depot1" value="#{detailDepotController.selected.depot1}" title="#{bundle.CreateDetailDepotTitle_depot1}" required="true" requiredMessage="#{bundle.CreateDetailDepotRequiredMessage_depot1}">
+                        <f:selectItems value="#{depotController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{detailDepotController.create}" value="#{bundle.CreateDetailDepotSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{detailDepotController.prepareList}" value="#{bundle.CreateDetailDepotShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateDetailDepotIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDetailDepotTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDetailDepotLabel_qte}"/>
+                    <h:outputText value="#{detailDepotController.selected.qte}" title="#{bundle.ViewDetailDepotTitle_qte}"/>
+                    <h:outputText value="#{bundle.ViewDetailDepotLabel_produit1}"/>
+                    <h:outputText value="#{detailDepotController.selected.produit1}" title="#{bundle.ViewDetailDepotTitle_produit1}"/>
+                    <h:outputText value="#{bundle.ViewDetailDepotLabel_depot1}"/>
+                    <h:outputText value="#{detailDepotController.selected.depot1}" title="#{bundle.ViewDetailDepotTitle_depot1}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{detailDepotController.destroyAndView}" value="#{bundle.ViewDetailDepotDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewDetailDepotEditLink}"/>
+                <br />
+                <h:commandLink action="#{detailDepotController.prepareCreate}" value="#{bundle.ViewDetailDepotCreateLink}" />
+                <br />
+                <h:commandLink action="#{detailDepotController.prepareList}" value="#{bundle.ViewDetailDepotShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewDetailDepotIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

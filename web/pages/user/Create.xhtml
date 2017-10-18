@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        
+        <ui:define name="body">
+           
+            <h:form id="f1"> 
+                <p:growl id="growl" showDetail="true"/>
+                <p:panel toggleable="true" header="Creation Utilisateur" style="font-size: 20px;" >
+                <h:panelGrid columns="2">
+                   <h:outputLabel value="Login" for="login" style="font-size: 20px;" />
+                    <p:inputText id="login" value="#{userController.selected.login}" style="font-size: 20px;" required="true" requiredMessage="login obligatoire"/>
+                    <h:outputLabel value="Mot de passe" for="password" style="font-size: 20px;" />
+                    <p:inputText id="password" value="#{userController.selected.password}"  style="font-size: 20px;" required="true" requiredMessage="mot de passe obligatoire"/>
+                    <h:outputLabel value="Administrateur" for="administrateur" style="font-size: 20px;" />
+                        <h:selectOneMenu id="administrateur" value="#{userController.selected.administrateur}">
+                                    <f:selectItem itemLabel="Non" itemValue="Non"/>
+                                    <f:selectItem itemLabel="Oui" itemValue="Oui"/>
+                        </h:selectOneMenu>
+                
+                </h:panelGrid>
+                    </p:panel>
+                <br />
+                     <p:tabView widgetVar="tab" id="tabView" style="height: 1300px;">
+                        <p:tab id="tabInfoGeneral" title="Gestion Affaires">
+                    
+                   <p:panel header="Parametrage des  Droits">
+                     
+                       <h:panelGrid columns="8" styleClass="mypanelgrid" cellspacing="10">
+                            <p:selectBooleanButton id="value2" value="#{userController.balancer}"  onLabel="Balancer Oui" offLabel="Balancer Non" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:200px">
+                                <p:ajax event="change" update="tabView" listener="#{userController.balancerAction()}" />
+                            </p:selectBooleanButton>
+                                    
+                                    <p:autoComplete dropdown="true" var="resultUtilisateur" itemValue="#{resultUtilisateur}" itemLabel="#{resultUtilisateur.login}" 
+                                                    id="acUtilisateur" value="#{userController.utilisateurDupplication}" converter="#{userController.userConverter}"
+                                                    completeMethod="#{userController.autocompleteLoginUtilisateur}">
+                                        <p:column>
+                                            <h:outputLabel value="#{resultUtilisateur.login}"/>
+                                        </p:column>
+                                    </p:autoComplete>
+                                    <h:commandButton value="Duppliquer utilisateur" action="#{userController.duppliquerUser()}"/>
+                                    <h:commandButton value="Selectionner Tout" action="#{userController.selectionnerTout()}"/>
+                                    <h:commandButton value="Initialiser Tout" action="#{userController.initialiserTout()}"/>
+                                </h:panelGrid>                   
+                        
+                            </p:panel>
+                               
+                           
+                               
+                          
+                    
+                        <h:panelGrid columns="2" cellspacing="20">
+                            <p:panel header="Affectation Page" style="width: 65%;position: absolute;left:  1.2%">
+                                <p:dataTable id="tabprofile" binding="#{userController.dataTableCreation}" 
+                                             style="border:solid 1px; layout: block!important;max-height: 300px!important;overflow:scroll!important; height: 300px "  
+                                             emptyMessage=" " var="det" value="#{userController.listProfiles}" rows="10" paginator="true">
+                            <p:column headerText="Page">
+                                <p:selectOneMenu value="#{det.profilePK.tableinterne}">
+                                    <f:selectItems value="#{userController.nomPagesItems}"/>
+                                    <p:ajax update="@this" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="Ajouter">
+                                <p:selectOneMenu value="#{det.ajouter}">
+                                    <f:selectItem itemLabel="Non" itemValue="Non"/>
+                                    <f:selectItem itemLabel="Oui" itemValue="Oui"/>
+                                          <p:ajax update="@this" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="Modifier">
+                                <p:selectOneMenu value="#{det.modifier}">
+                                    <f:selectItem itemLabel="Non" itemValue="Non"/>
+                                    <f:selectItem itemLabel="Oui" itemValue="Oui"/>
+                                          <p:ajax update="@this" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="Supprimer">
+                                <p:selectOneMenu value="#{det.supprimer}">
+                                    <f:selectItem itemLabel="Non" itemValue="Non"/>
+                                    <f:selectItem itemLabel="Oui" itemValue="Oui"/>
+                                          <p:ajax update="@this" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="Action">
+                                <p:commandLink update=":f1" actionListener="#{userController.ajouterLigneProfileCreateListener}">
+                                <h:graphicImage height="20px" width="20px" value="/img/++.png"/>
+                            </p:commandLink>
+                            <h:outputText value="      "/>
+                            <p:commandLink update=":f1" actionListener="#{userController.supprimerLigneProfileCreateListener}">
+                            <h:graphicImage height="20px" width="20px" value="/img/icone_supprimer_tab.gif"/>
+                            </p:commandLink>
+                        </p:column>
+                        </p:dataTable>
+                        </p:panel>
+                         <p:panel header="Affectation Etat" style="width: 25%;position: absolute;right:   1.2%;">
+                             <p:selectCheckboxMenu id="menu" value="#{userController.etatsSelectionnees}" label="Etats" style="width:200px;height: 300px;" >
+                                   <f:selectItems value="#{userController.etatsItems}"/>
+                            </p:selectCheckboxMenu>
+                            
+                           
+                         </p:panel> 
+                            </h:panelGrid>
+                            
+  
+                        
+                    
+                
+         
+                          
+                  
+                            
+                            
+                            
+                          
+                          
+                           
+</p:tab>            
+   
+                      
+                      
+                 
+</p:tabView>
+ <br />
+               <br />
+               &nbsp; &nbsp;<h:commandLink  action="#{userController.create()}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{userController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

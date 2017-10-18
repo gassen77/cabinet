@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Liste Des Mod&egrave;les"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+                    <style type="text/css">
+          .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+    border-style: solid;
+    border-width: initial;
+    overflow: hidden;
+    padding: 4px 10px;
+    
+}
+.ui-datatable table {
+    border-collapse:inherit;
+}</style>
+            <h:form id="operationForm" >
+                <p:growl id="growlc" showDetail="false"/>
+                <p:dataTable emptyMessage="Liste Vide" var="op" value="#{modelesortieController.items}" rowKey="#{op.idModeleSortie}" paginator="true" rows="10"  
+                                 id="opTable" >
+                    <f:facet name="header">  
+                        Liste Des Mod&egrave;les
+                    </f:facet>
+                    <p:column headerText="Code">  
+                        <f:facet name="header">
+                                <h:outputText value="Code"/>
+                                    <br/>
+                                    <p:inputText value="#{modelesortieController.codeFiltre}" style="width: 300px !important;"/>
+                            </f:facet>
+                        <h:outputLabel value="#{op.codeModeleSortie}"/>
+                    </p:column>
+                    <p:column headerText="Libelle">  
+                         <f:facet name="header">
+                                <h:outputText value="Libelle"/>
+                                    <br/>
+                                    <p:inputText value="#{modelesortieController.libelleFiltre}" style="width: 300px !important;"/>
+                            </f:facet>
+                        <h:outputLabel value="#{op.libelleModeleSortie}"/>
+                    </p:column>
+                    <p:column headerText="Type Mod&egrave;le">  
+                        <h:outputText rendered="#{modelesortieController.client()==true}" value="#{op.typeModele.nomTop} Client"/>
+                        <h:outputText rendered="#{modelesortieController.client()==false}" value="#{op.typeModele.nomTop}"/>
+                    </p:column>
+                    <p:column>
+                          <f:facet name="header">
+                                <h:commandButton value="Rechercher" action="#{modelesortieController.rechercheMultipleCriteres()}"/>
+                            </f:facet>
+                            
+    
+                            <h:outputText value=" "/>
+                        <h:commandLink rendered="#{modelesortieController.boutonModifier}" action="#{modelesortieController.modifierSetupJournaux()}"  ><h:graphicImage value="/img/icone_modifier.gif" style="border:0px;"/></h:commandLink>  
+                          &nbsp;
+                          <h:commandLink rendered="#{modelesortieController.boutonSupprimer}" action="#{modelesortieController.supprimerModeleJournaux()}" ><h:graphicImage value="/img/icone_supprimer.gif" style="border:0px;" /></h:commandLink>
+                    </p:column>
+                    </p:dataTable>
+                &nbsp; &nbsp;<h:commandLink rendered="#{modelesortieController.boutonAjouter}" action="#{modelesortieController.prepareCreateJournaux()}" title="Creation" ><h:graphicImage value="/img/file_add.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+           </h:form>
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

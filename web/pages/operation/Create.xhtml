@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            
+        </ui:define>
+        <ui:define name="body">
+              <h:form>
+               <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Creation Operation" >
+                <h:panelGrid columns="8">
+             <h:outputLabel value="client" for="client" />
+                    
+                    <p:autoComplete id="client" size="30" dropdown="true" var="resultClient1" itemValue="#{resultClient1}" itemLabel="#{resultClient1.nom}" 
+                                     maxResults="10"    value="#{operationController.selected.client1}"  completeMethod="#{operationController.autocompleteClient}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultClient1.nom}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    <h:outputLabel value="Mode reglement" for="modereglement" />
+                  
+                     <p:autoComplete id="modereglement" size="30" dropdown="true" var="resultmodereglement" itemValue="#{resultmodereglement}" itemLabel="#{resultmodereglement.libelle}" 
+                                     maxResults="10"    value="#{operationController.selected.modereglement1}"  completeMethod="#{operationController.autocompleteModeReglement}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultmodereglement.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    <h:outputLabel value="Banque" for="banque" />
+                    <p:autoComplete id="banque" size="30" dropdown="true" var="resultbanque1" itemValue="#{resultbanque1}" itemLabel="#{resultbanque1.libelle}" 
+                                    maxResults="10"    value="#{operationController.selected.banque1}"  completeMethod="#{operationController.autocompleteBanque}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultbanque1.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    
+                    <h:outputLabel value="Type Operation" for="typeoperation" />
+                     <p:autoComplete id="typeoperation" size="30" dropdown="true" var="resulttypeoperation1" itemValue="#{resulttypeoperation1}" itemLabel="#{resulttypeoperation1.libelle}" 
+                                    maxResults="10"    value="#{operationController.selected.typeoperation1}"  completeMethod="#{operationController.autocompleteTypeOperation}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resulttypeoperation1.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                   
+                    
+                    <h:outputLabel value="numero operation" for="numerooperation" />
+                    <p:inputText id="numerooperation" value="#{operationController.selected.numerooperation}" title="#{bundle.CreateOperationTitle_numerooperation}" />
+                    <h:outputLabel value="date operation" for="dateoperation" />
+                   
+                    <p:calendar id="dateoperation" navigator="true"  pattern="dd/MM/yyyy"  value="#{operationController.selected.dateoperation}"   />
+
+                    <h:outputLabel value="montant operation" for="montantoperation" />
+                    <p:inputText id="montantoperation" value="#{operationController.selected.montantoperation}" title="#{bundle.CreateOperationTitle_montantoperation}" />
+                    <h:outputLabel value="montant debite" for="montantdebite" />
+                    <p:inputText id="montantdebite" value="#{operationController.selected.montantdebite}" title="#{bundle.CreateOperationTitle_montantdebite}" />
+                    <h:outputLabel value="montant credite" for="montantcredite" />
+                    <p:inputText id="montantcredite" value="#{operationController.selected.montantcredite}" title="#{bundle.CreateOperationTitle_montantcredite}" />
+                    <h:outputLabel value="montant cheque" for="montantcheque" />
+                    <p:inputText id="montantcheque" value="#{operationController.selected.montantcheque}" title="#{bundle.CreateOperationTitle_montantcheque}" />
+                    <h:outputLabel value="montant espece" for="montantespece" />
+                    <p:inputText id="montantespece" value="#{operationController.selected.montantespece}" title="#{bundle.CreateOperationTitle_montantespece}" />
+                    <h:outputLabel value="montant traite" for="montanttraite" />
+                    <p:inputText id="montanttraite" value="#{operationController.selected.montanttraite}" title="#{bundle.CreateOperationTitle_montanttraite}" />
+                    <h:outputLabel value="montant virement" for="montantvirement" />
+                    <p:inputText id="montantvirement" value="#{operationController.selected.montantvirement}" title="#{bundle.CreateOperationTitle_montantvirement}" />
+                    <h:outputLabel value="date Sys" for="dateSys" />                
+                     <p:calendar id="dateSys" navigator="true"  pattern="dd/MM/yyyy"  value="#{operationController.selected.dateSys}"   />
+                    <h:outputLabel value="Utilisateur" for="user" />
+                    <h:inputText id="user" value="#{operationController.selected.user}"  />
+                    <h:outputLabel value="libelle operation" for="libelleoperation" />
+                    <p:inputText id="libelleoperation" value="#{operationController.selected.libelleoperation}" title="#{bundle.CreateOperationTitle_libelleoperation}" />
+                  
+                   
+               </h:panelGrid>
+               <br/>
+                &nbsp; &nbsp;<h:commandLink  action="#{operationController.create}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{operationController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

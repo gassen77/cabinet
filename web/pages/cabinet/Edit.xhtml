@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui"  >
+
+    <ui:composition template="/template.xhtml">
+       
+        <ui:define name="body">
+        
+            <h:form>
+                 <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Modification Cabinet" style="font-size: 20px;" >
+                <h:panelGrid columns="6">
+                    <h:outputLabel value="Code" for="code" />
+                    <p:inputText id="code" value="#{cabinetController.selected.code}"  style="font-size: 20px;"  required="true" requiredMessage="Code obligatoire"/>
+                    <h:outputLabel value="Libelle" for="libelle" style="font-size: 20px;" />
+                    <p:inputText id="libelle" value="#{cabinetController.selected.libelle}" style="font-size: 20px;"  required="true" requiredMessage="Libelle obligatoire"/>
+                    <h:outputLabel value="Adresse" for="adresse" style="font-size: 20px;" />
+                    <p:inputText id="adresse" value="#{cabinetController.selected.adresse}" style="font-size: 20px;" size="60" />
+                    <h:outputLabel value="Fax" for="fax" style="font-size: 20px;" />
+                    <p:inputText id="fax" value="#{cabinetController.selected.fax}" style="font-size: 20px;" />
+                    <h:outputLabel value="Tel" for="tel" style="font-size: 20px;" />
+                    <p:inputText id="tel" value="#{cabinetController.selected.tel}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Matricule" for="matricule" style="font-size: 20px;" />
+                    <p:inputText id="matricule" value="#{cabinetController.selected.matricule}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Ville" for="ville" style="font-size: 20px;" />
+                    <p:inputText id="ville" value="#{cabinetController.selected.ville}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Matricule Fiscale" for="matriculefiscale" style="font-size: 20px;" />
+                    <p:inputText id="matriculefiscale" value="#{cabinetController.selected.matriculefiscale}" style="font-size: 20px;" />
+                    <h:outputLabel value="Code Postal" for="codepostal" style="font-size: 20px;" />
+                    <p:inputText id="codepostal" value="#{cabinetController.selected.codepostal}" style="font-size: 20px;" />
+                </h:panelGrid>
+                     </p:panel>
+                <br />
+                &nbsp; &nbsp;<h:commandLink  action="#{cabinetController.update}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{cabinetController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

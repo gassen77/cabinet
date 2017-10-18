@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDetailConventionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{detailConventionController.selected.id}" title="#{bundle.EditDetailConventionTitle_id}" required="true" requiredMessage="#{bundle.EditDetailConventionRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_classeProduit}" for="classeProduit" />
+                    <h:inputText id="classeProduit" value="#{detailConventionController.selected.classeProduit}" title="#{bundle.EditDetailConventionTitle_classeProduit}" />
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_remise}" for="remise" />
+                    <h:inputText id="remise" value="#{detailConventionController.selected.remise}" title="#{bundle.EditDetailConventionTitle_remise}" />
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_prixHt}" for="prixHt" />
+                    <h:inputText id="prixHt" value="#{detailConventionController.selected.prixHt}" title="#{bundle.EditDetailConventionTitle_prixHt}" />
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_prixTtc}" for="prixTtc" />
+                    <h:inputText id="prixTtc" value="#{detailConventionController.selected.prixTtc}" title="#{bundle.EditDetailConventionTitle_prixTtc}" />
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_prixMinHt}" for="prixMinHt" />
+                    <h:inputText id="prixMinHt" value="#{detailConventionController.selected.prixMinHt}" title="#{bundle.EditDetailConventionTitle_prixMinHt}" />
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_prixMinTtc}" for="prixMinTtc" />
+                    <h:inputText id="prixMinTtc" value="#{detailConventionController.selected.prixMinTtc}" title="#{bundle.EditDetailConventionTitle_prixMinTtc}" />
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_classeClient}" for="classeClient" />
+                    <h:selectOneMenu id="classeClient" value="#{detailConventionController.selected.classeClient}" title="#{bundle.EditDetailConventionTitle_classeClient}" >
+                        <f:selectItems value="#{classeClientController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDetailConventionLabel_convention}" for="convention" />
+                    <h:selectOneMenu id="convention" value="#{detailConventionController.selected.convention}" title="#{bundle.EditDetailConventionTitle_convention}" required="true" requiredMessage="#{bundle.EditDetailConventionRequiredMessage_convention}">
+                        <f:selectItems value="#{conventionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{detailConventionController.update}" value="#{bundle.EditDetailConventionSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditDetailConventionViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{detailConventionController.prepareList}" value="#{bundle.EditDetailConventionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditDetailConventionIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

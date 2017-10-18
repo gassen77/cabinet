@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTvaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTvaLabel_id}"/>
+                    <h:outputText value="#{tvaController.selected.id}" title="#{bundle.ViewTvaTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewTvaLabel_code}"/>
+                    <h:outputText value="#{tvaController.selected.code}" title="#{bundle.ViewTvaTitle_code}"/>
+                    <h:outputText value="#{bundle.ViewTvaLabel_libelle}"/>
+                    <h:outputText value="#{tvaController.selected.libelle}" title="#{bundle.ViewTvaTitle_libelle}"/>
+                    <h:outputText value="#{bundle.ViewTvaLabel_montant}"/>
+                    <h:outputText value="#{tvaController.selected.montant}" title="#{bundle.ViewTvaTitle_montant}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tvaController.destroyAndView}" value="#{bundle.ViewTvaDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewTvaEditLink}"/>
+                <br />
+                <h:commandLink action="#{tvaController.prepareCreate}" value="#{bundle.ViewTvaCreateLink}" />
+                <br />
+                <h:commandLink action="#{tvaController.prepareList}" value="#{bundle.ViewTvaShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewTvaIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

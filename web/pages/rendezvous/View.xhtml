@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewRendezvousTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewRendezvousLabel_id}"/>
+                    <h:outputText value="#{rendezvousController.selected.id}" title="#{bundle.ViewRendezvousTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewRendezvousLabel_datecreation}"/>
+                    <h:outputText value="#{rendezvousController.selected.datecreation}" title="#{bundle.ViewRendezvousTitle_datecreation}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRendezvousLabel_daterendezvous}"/>
+                    <h:outputText value="#{rendezvousController.selected.daterendezvous}" title="#{bundle.ViewRendezvousTitle_daterendezvous}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRendezvousLabel_heurerendezvous}"/>
+                    <h:outputText value="#{rendezvousController.selected.heurerendezvous}" title="#{bundle.ViewRendezvousTitle_heurerendezvous}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRendezvousLabel_photo}"/>
+                    <h:outputText value="#{rendezvousController.selected.photo}" title="#{bundle.ViewRendezvousTitle_photo}"/>
+                    <h:outputText value="#{bundle.ViewRendezvousLabel_raison}"/>
+                    <h:outputText value="#{rendezvousController.selected.raison}" title="#{bundle.ViewRendezvousTitle_raison}"/>
+                    <h:outputText value="#{bundle.ViewRendezvousLabel_client}"/>
+                    <h:outputText value="#{rendezvousController.selected.client}" title="#{bundle.ViewRendezvousTitle_client}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{rendezvousController.destroyAndView}" value="#{bundle.ViewRendezvousDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewRendezvousEditLink}"/>
+                <br />
+                <h:commandLink action="#{rendezvousController.prepareCreate}" value="#{bundle.ViewRendezvousCreateLink}" />
+                <br />
+                <h:commandLink action="#{rendezvousController.prepareList}" value="#{bundle.ViewRendezvousShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewRendezvousIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,67 @@
+html { height: 100%; }
+
+body {
+    font-family: Arial,Verdan,Sans-Serif;
+    font-size: 75%;
+    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+    background-image: url("../images/blanc.png");
+   
+}
+#wrapper{
+    background: url("../images/blanc.png");
+    width: 100%;
+	height: 100%;
+	margin: auto;
+}
+#authentification{
+	height: 100%;
+	margin: auto;
+}
+.authentificationBg{
+    background: url("../images/template.png") no-repeat scroll center center transparent;
+	height: 422px;
+	width: 553px;
+	
+}
+.authStyle  {
+    color: #979797;
+    font-family: verdana;
+    font-size: 17px;
+}
+.formStyle  {
+    color: #979797;
+    font-family: verdana;
+    font-size: 12px;
+	font-weight: bold;
+}
+.footerStyle  {
+    color: #ffffff;
+    font-family: verdana;
+    font-size: 12px;
+	padding-left: 30px;
+}
+.chekBoxStyle{
+    color: #979797;
+    font-family: verdana;
+	width: 220px;
+}
+
+
+.inputStyle{
+	width: 280px;
+	border: 0;
+	color: #000000;
+	font-size: 12px;
+	background-color : #d1d1d1;
+	padding-bottom: 3px;
+}
+
+.footerOnlyStyle{
+	background: url("../images/onlySoft.png") no-repeat scroll center center transparent;
+	height: 108px;
+	width: 534px;
+}
+
+

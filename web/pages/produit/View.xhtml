@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewProduitTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewProduitLabel_id}"/>
+                    <h:outputText value="#{produitController.selected.id}" title="#{bundle.ViewProduitTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_code}"/>
+                    <h:outputText value="#{produitController.selected.code}" title="#{bundle.ViewProduitTitle_code}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_libelle}"/>
+                    <h:outputText value="#{produitController.selected.libelle}" title="#{bundle.ViewProduitTitle_libelle}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_reference}"/>
+                    <h:outputText value="#{produitController.selected.reference}" title="#{bundle.ViewProduitTitle_reference}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_qteenstock}"/>
+                    <h:outputText value="#{produitController.selected.qteenstock}" title="#{bundle.ViewProduitTitle_qteenstock}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_datecreation}"/>
+                    <h:outputText value="#{produitController.selected.datecreation}" title="#{bundle.ViewProduitTitle_datecreation}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewProduitLabel_datemodification}"/>
+                    <h:outputText value="#{produitController.selected.datemodification}" title="#{bundle.ViewProduitTitle_datemodification}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewProduitLabel_image}"/>
+                    <h:outputText value="#{produitController.selected.image}" title="#{bundle.ViewProduitTitle_image}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_commentaire}"/>
+                    <h:outputText value="#{produitController.selected.commentaire}" title="#{bundle.ViewProduitTitle_commentaire}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_prixachat}"/>
+                    <h:outputText value="#{produitController.selected.prixachat}" title="#{bundle.ViewProduitTitle_prixachat}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_unite}"/>
+                    <h:outputText value="#{produitController.selected.unite}" title="#{bundle.ViewProduitTitle_unite}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_fournisseur}"/>
+                    <h:outputText value="#{produitController.selected.fournisseur}" title="#{bundle.ViewProduitTitle_fournisseur}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_famille}"/>
+                    <h:outputText value="#{produitController.selected.famille}" title="#{bundle.ViewProduitTitle_famille}"/>
+                    <h:outputText value="#{bundle.ViewProduitLabel_categorieproduit}"/>
+                    <h:outputText value="#{produitController.selected.categorieproduit}" title="#{bundle.ViewProduitTitle_categorieproduit}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{produitController.destroyAndView}" value="#{bundle.ViewProduitDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewProduitEditLink}"/>
+                <br />
+                <h:commandLink action="#{produitController.prepareCreate}" value="#{bundle.ViewProduitCreateLink}" />
+                <br />
+                <h:commandLink action="#{produitController.prepareList}" value="#{bundle.ViewProduitShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewProduitIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

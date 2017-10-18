@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            
+        </ui:define>
+        <ui:define name="body">
+              <h:form>
+               <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Modification Depense Divers" style="font-size: 20px;" >
+                <h:panelGrid columns="8">
+             <h:outputLabel value="Client" for="client" />
+                    
+                    <p:autoComplete id="client" size="30" dropdown="true" var="resultClient1" itemValue="#{resultClient1}" itemLabel="#{resultClient1.nom}" 
+                                     maxResults="10"    value="#{operationController.selected.client}"  completeMethod="#{operationController.autocompleteClient}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultClient1.nom}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    <h:outputLabel value="Mode reglement" for="modereglement" />
+                  
+                     <p:autoComplete id="modereglement" size="30" dropdown="true" var="resultmodereglement" itemValue="#{resultmodereglement}" itemLabel="#{resultmodereglement.libelle}" 
+                                     maxResults="10"    value="#{operationController.selected.modereglement}"  completeMethod="#{operationController.autocompleteModeReglement}">
+                      <p:ajax event="itemSelect"  update="modereglement calecheance RE banque REC EM" listener="#{operationController.changeModeReglement()}"/> 
+                                                <p:column>
+                                                <h:outputLabel value="#{resultmodereglement.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    <h:outputLabel value="Banque" for="banque" />
+                    <p:autoComplete id="banque" size="30" dropdown="true" var="resultbanque1" itemValue="#{resultbanque1}" itemLabel="#{resultbanque1.libelle}" 
+                                    maxResults="10"    value="#{operationController.selected.banque}"  completeMethod="#{operationController.autocompleteBanque}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultbanque1.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    
+                   <h:outputLabel value="Ech&eacute;ance" />
+                     <p:calendar  navigator="true"     id="calecheance" pattern="dd/MM/yyyy" value="#{operationController.selected.dateechenace}"  disabled="#{operationController.inputTextEcheance}" >
+                         
+                          
+
+                        </p:calendar>
+                      
+                        <h:outputLabel value="R&eacute;f&eacute;rence" />
+                        <p:inputText id="RE" value="#{operationController.selected.reference}" binding="#{operationController.inputTextReference}">
+                            <p:ajax event="change"  update="@this"/></p:inputText>
+                         
+                          <h:outputLabel value="Re&ccedil;u" />
+                          <p:inputText id="REC" value="#{operationController.selected.recu}" binding="#{operationController.inputTextRecu}">
+                           
+                        </p:inputText>
+
+                          <h:outputLabel value="  Emetteur"/>
+                          <p:inputText id="EM"    value="#{operationController.selected.emetteur}" binding="#{operationController.inputTextEmetteur}">
+                           
+                        </p:inputText>   
+               
+                 
+                    
+                    <h:outputLabel value="Numero Operation" for="numerooperation" />
+                    <p:inputText id="numerooperation" value="#{operationController.selected.numerooperation}" />
+                    <h:outputLabel value="Date" for="dateoperation" />
+                   
+                    <p:calendar id="dateoperation" navigator="true"  pattern="dd/MM/yyyy"  value="#{operationController.selected.dateoperation}"   />
+
+                    <h:outputLabel value="Montant Operation" for="montantoperation" />
+                    <p:inputText id="montantoperation" value="#{operationController.selected.montantoperation}" >
+                        <p:ajax update="@this"></p:ajax>
+                         <f:convertNumber minFractionDigits="3" locale="en-US"  />     
+                    </p:inputText>                    
+                   
+               </h:panelGrid>
+               <br/>
+               &nbsp; &nbsp;<h:commandLink  action="#{operationController.updateDivers}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+               &nbsp; &nbsp;<h:commandLink action="#{operationController.prepareListDivers}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

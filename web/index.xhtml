@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+   <style>
+     
+       
+       </style>
+      <ui:composition template="/template.xhtml">
+
+        <ui:define name="body">
+            
+               <p:panel>
+               <div>
+                <ul>
+                    <li> 
+                         <h:form>
+                             <p style="">Fiche Patient &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Consultation Patient  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Depense Fournisseur &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Reglement Patient
+                             &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Extrait Patient &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Etat Caisse</p>
+                             <h:commandLink  action="#{clientController.prepareCreate()}" title="Creation Patient" immediate="true">
+                                    <h:graphicImage value="/img/fichepatient.png"/>
+                            </h:commandLink> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <h:commandLink  action="#{operationController.prepareCreateConsultation()}" title="Consultation Patient" immediate="true">
+                                    <h:graphicImage value="/img/consultation.png"/>
+                            </h:commandLink>
+                            
+                               &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               <h:commandLink  action="#{operationController.prepareCreateFournisseur()}" title="Depense Fournisseur" immediate="true">
+                                    <h:graphicImage value="/img/fournisseur.png"/>
+                            </h:commandLink>
+                             &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               <h:commandLink  action="#{reglementComController.acceePrepareCreateReglementClient()}" title="Reglement Patient" immediate="true">
+                                 <h:graphicImage value="/img/dollar.png"/>
+                            </h:commandLink>
+                                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <h:commandLink  action="#{reglementComController.etatExtraitPatient()}" title="Extrait De Compte Patient" immediate="true">
+                                 <h:graphicImage value="/img/extraitpatient.png"/>
+                            </h:commandLink>
+                               &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               <h:commandLink  action="#{reglementComController.etatCaisse()}" title="Etat Caisse" immediate="true">
+                                 <h:graphicImage value="/img/caisse.png"/>
+                            </h:commandLink>
+                         </h:form> 
+                    </li>
+                 
+                     
+                      
+                </ul>
+            </div>
+           
+      
+    </p:panel>
+            
+            
+           
+        </ui:define>
+    </ui:composition>
+
+
+
+</html>
+

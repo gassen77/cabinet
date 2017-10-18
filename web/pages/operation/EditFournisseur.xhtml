@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="f1">
+               <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Modification Depense Fournisseurs" style="font-size: 20px;">
+                <h:panelGrid columns="8">
+             <h:outputLabel value="client" for="client" />
+                    
+                    <p:autoComplete id="client" size="30" dropdown="true" var="resultClient1" itemValue="#{resultClient1}" itemLabel="#{resultClient1.nom}" 
+                                     maxResults="10"    value="#{operationController.selected.client}"  completeMethod="#{operationController.autocompleteClient}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultClient1.nom}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    <h:outputLabel value="Mode reglement" for="modereglement" />
+                  
+                     <p:autoComplete id="modereglement" size="30" dropdown="true" var="resultmodereglement" itemValue="#{resultmodereglement}" itemLabel="#{resultmodereglement.libelle}" 
+                                     maxResults="10"    value="#{operationController.selected.modereglement}"  completeMethod="#{operationController.autocompleteModeReglement}">
+                            <p:ajax event="itemSelect" update="modereglement ref recu emetteur banque echeance" listener="#{operationController.changeModeReglement()}"/> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultmodereglement.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    <h:outputLabel value="Banque" for="banque" />
+                    <p:autoComplete id="banque" size="30" dropdown="true" var="resultbanque1" itemValue="#{resultbanque1}" itemLabel="#{resultbanque1.libelle}" 
+                                    maxResults="10"    value="#{operationController.selected.banque}"  completeMethod="#{operationController.autocompleteBanque}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultbanque1.libelle}" />
+                                            </p:column>
+                      
+                                        </p:autoComplete> 
+                    
+               
+                    <h:outputLabel value="Reference" for="ref" />
+                    <p:inputText id="ref" value="#{operationController.selected.reference}" binding="#{operationController.inputTextReference}" />
+                    <h:outputLabel value="Recu" for="recu" />
+                    <p:inputText id="recu" value="#{operationController.selected.recu}" binding="#{operationController.inputTextRecu}" />
+                    <h:outputLabel value="Emetteur" for="emetteur" />
+                    <p:inputText id="emetteur" value="#{operationController.selected.emetteur}" binding="#{operationController.inputTextEmetteur}"  />
+                    <h:outputLabel value="Date Echeance" for="echeance" />           
+          <p:calendar id="echeance" navigator="true"  pattern="dd/MM/yyyy"  value="#{operationController.selected.dateechenace}"   />
+                     
+                    <h:outputLabel value="numero operation" for="numerooperation" />
+                    <p:inputText id="numerooperation" value="#{operationController.selected.numerooperation}"  />
+                    <h:outputLabel value="date" for="dateoperation" />
+                   
+                    <p:calendar id="dateoperation" navigator="true"  pattern="dd/MM/yyyy"  value="#{operationController.selected.dateoperation}"   />
+
+                    <h:outputLabel value="montant operation" for="montantoperation" />
+                    <p:inputText id="montantoperation" binding="#{operationController.inputTextMontantOperation}" value="#{operationController.selected.montantoperation}" >
+                        <p:ajax update="@this" ></p:ajax>
+                           <f:convertNumber minFractionDigits="3" locale="en-US"  /> 
+                    </p:inputText>                    
+                    <h:outputText value="Details"/>
+                    <p:selectBooleanButton onLabel="Oui" offLabel="Non" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{operationController.selected.detail}">
+                        <p:ajax event="change" update="@this :f1" listener="#{operationController.affichagelisteproduits()}" />
+                    </p:selectBooleanButton>   
+                                       
+               </h:panelGrid>
+                      <br/>
+                       <br/>
+                 <h:panelGroup id="panelProdDetailsTable20" >
+                  
+                     <p:dataTable binding="#{operationController.dataTableProduit}" emptyMessage="Liste Vide" rowIndexVar="rowIndex" styleClass="dt"  scrollable="true" scrollHeight="308" var="det"  value="#{operationController.listeDetails}" id="prodDetailsTable" style="font-weight: bold;font-size: 20px;" >
+             
+
+ 
+                        <p:column id="colCodeProduit" style="width: 25%">  
+                           <f:facet name="header">
+                                <h:outputText value="Code Produit"/>
+                                
+                            </f:facet>
+                                 
+                            
+                                <p:autoComplete id="codeprod"  style = "width: 100%"  inputStyle = "width: 100%"  dropdown="true" var="Prd" itemValue="#{Prd}" itemLabel="#{Prd.codeproduit}"  
+                                              maxResults="10"     value="#{det.idproduit}" completeMethod="#{operationController.autocompleteProduitCode}">
+                      <p:ajax event="itemSelect"  update=" :f1:prodDetailsTable:codeprod :f1:prodDetailsTable:libelleprod" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{Prd.codeproduit}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+              
+                          
+                        </p:column>
+                       <p:column style="width: 25%" >
+                       <f:facet name="header">
+                               <f:facet name="header">
+                                <h:outputText value="Libelle Produit"/>
+                                
+                            </f:facet>
+                            </f:facet>
+                            
+                            
+                        
+                              <p:autoComplete id="libelleprod"  style = "width: 100%"  inputStyle = "width: 100%"  dropdown="true" var="Prod" itemValue="#{Prod}" itemLabel="#{Prod.libelleproduit}" 
+                                              maxResults="10"     value="#{det.idproduit}" completeMethod="#{operationController.autocompleteProduitNom}">
+                      <p:ajax event="itemSelect"  update=" :f1:prodDetailsTable:codeprod :f1:prodDetailsTable:libelleprod" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{Prod.libelleproduit}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+              
+                          
+                        </p:column>
+                    
+                                  
+                                  <p:column style="width: 12.5%">
+                              
+                                       <f:facet name="header">
+                                <h:outputText value="Quantit&eacute;"/>
+                                
+                            </f:facet>
+                             
+                                  <p:inputText  style = "width: 100%"    onclick="this.select();"   id="quantiteId" value="#{det.qte}">
+                                   
+                                      <p:ajax event="blur"  listener="#{operationController.calculligne()}" update="quantiteId TotalTTC prixu f1:montantoperation" />
+                                
+                                          <f:convertNumber minFractionDigits="3" locale="en-US"  />          
+                            </p:inputText>
+                              
+                          
+                        </p:column>
+                        <p:column style="width: 12.5%">
+                             
+                               <f:facet name="header">
+                                <h:outputText  value="Prix Unitaire" />
+                                
+                            </f:facet>
+                         
+                                <p:inputText  style = "width: 100%" onclick="this.select();"  id="prixu" value="#{det.prixunitaire}">
+                              <p:ajax event="blur"  listener="#{operationController.calculligne()}" update="quantiteId TotalTTC prixu f1:montantoperation" />
+                                                                
+
+                                <f:convertNumber minFractionDigits="3" locale="en-US"  />     
+                                </p:inputText>
+                              
+                           
+                        </p:column>                   
+                        <p:column style="width: 12.5%">
+                               <f:facet name="header">
+                                <h:outputText  value="Total" />
+                                
+                            </f:facet>
+                              
+                            <p:inputText   style = "width: 100%" id="TotalTTC"  value="#{det.prixtotal}" disabled="true" >
+                                                  
+                                       <f:convertNumber minFractionDigits="3" /></p:inputText>
+                             
+                        </p:column>
+                                  <p:column style="width: 12.5%">
+                               <f:facet name="header">
+                                <h:outputText  value="Actions" />
+                                
+                            </f:facet>
+                           
+                                           <p:commandLink update=":f1"  
+                                                          actionListener="#{operationController.ajouterLigneProduit()}">
+                              <h:graphicImage value="/img/++.png" style="border:1px;"/>
+                            </p:commandLink>
+                            
+                            <p:commandLink update=":f1"  
+                                           actionListener="#{operationController.supprimerLigneProduit()}">
+                                <h:graphicImage value="/img/icone_supprimer.gif" style="border:1px;"/>
+                            </p:commandLink>
+                           
+                          
+                        </p:column>
+                
+                       
+                       
+                      
+                      
+                    </p:dataTable>
+                      <br/>
+                       <br/>
+                </h:panelGroup>
+            
+                     
+                     <br/>
+                     &nbsp; &nbsp;<h:commandLink  action="#{operationController.updateFournisseur}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                     &nbsp; &nbsp;<h:commandLink action="#{operationController.prepareListFournisseur}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

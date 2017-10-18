@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+      
+        <ui:define name="body">
+          
+            <h:form id="f11">
+                 <p:growl id="growl" showDetail="true"/>
+                <p:panel toggleable="true" header="Modification Image Client" style="font-size: 20px;" >
+                <h:panelGrid columns="2">
+                      <h:outputLabel value="Client" for="client" style="font-size: 20px;" />
+                    <p:autoComplete id="client" size="30" style="font-size: 20px;" dropdown="true" var="resultClient" itemValue="#{resultClient}" itemLabel="#{resultClient.nom}" 
+                                     maxResults="10"    value="#{imagesclientController.selected.client}"  completeMethod="#{imagesclientController.autocompleteClient}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;" value="#{resultClient.nom}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                      <h:outputLabel value="Photo" for="photo" style="font-size: 20px;" />
+                  
+                    <h:outputLabel value="Photo" for="photo" style="font-size: 20px;" />
+                   
+                   <h:form id="form12">
+                                <p:fileUpload
+                    update="messages,imgTier23,:f11"
+                    allowTypes="/(\.|\/)(jpe?g)$/"
+                    auto="true"
+                    multiple="false"
+                    label="Télécharger"
+                    mode="advanced"
+                    style="width: 250px;"
+                    fileUploadListener="#{imagesclientController.handleFileUpload}">
+                                    <p:graphicImage id="imgTier23" width="250" height="250" value="#{imagesclientController.selected.photo}" />
+                    </p:fileUpload>
+                    <p:growl id="messages" showDetail="false"/>
+                      
+                        </h:form>
+                  
+                </h:panelGrid>
+                <br />
+                &nbsp; &nbsp;<h:commandLink  action="#{imagesclientController.update}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{imagesclientController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+        </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

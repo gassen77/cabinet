@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+          
+        </ui:define>
+        <ui:define name="body">
+           
+            <h:form>
+                 <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Creation Fournisseur" style="font-size: 20px;">
+                <h:panelGrid columns="4">
+                   <h:outputLabel value="Code" style="font-size: 20px;" for="code" />
+                    <p:inputText id="code" style="font-size: 20px;" value="#{fournisseurController.selected.code}"  />
+                    <h:outputLabel value="Nom" for="nom" style="font-size: 20px;" />
+                    <p:inputText id="nom" value="#{fournisseurController.selected.nom}" style="font-size: 20px;" />
+                    <h:outputLabel value="Matricule Fiscale" for="matriculefiscale" style="font-size: 20px;" />
+                    <p:inputText id="matriculefiscale" value="#{fournisseurController.selected.matriculefiscale}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Adresse" for="adresse" style="font-size: 20px;" />
+                    <p:inputText id="adresse" value="#{fournisseurController.selected.adresse}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Code Postale" for="codepostale" style="font-size: 20px;" />
+                    <p:inputText id="codepostale" value="#{fournisseurController.selected.codepostale}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Tel" for="tel" style="font-size: 20px;" />
+                    <p:inputText id="tel" value="#{fournisseurController.selected.tel}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Fax" for="fax" style="font-size: 20px;" />
+                    <p:inputText id="fax" value="#{fournisseurController.selected.fax}" style="font-size: 20px;" />
+                    <h:outputLabel value="Mail" for="mail" style="font-size: 20px;" />
+                    <p:inputText id="mail" value="#{fournisseurController.selected.mail}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Por" for="por" style="font-size: 20px;" />
+                    <p:inputText id="por" value="#{fournisseurController.selected.por}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Date Creation" for="datecreation" style="font-size: 20px;" />
+                   
+                 <p:calendar navigator="true"  pattern="dd/MM/yyyy" style="font-size: 20px;" value="#{fournisseurController.selected.datecreation}" />
+
+                    <h:outputLabel value="Date Creation Fiche" for="datecreationfiche" style="font-size: 20px;" />
+                
+                       <p:calendar navigator="true"  pattern="dd/MM/yyyy" style="font-size: 20px;" value="#{fournisseurController.selected.datecreationfiche}" />
+                    <h:outputLabel value="derniere date modif" for="dernieredatemodif" style="font-size: 20px;" />
+                 
+                                           <p:calendar navigator="true"  pattern="dd/MM/yyyy" style="font-size: 20px;" value="#{fournisseurController.selected.dernieredatemodif}" />
+
+                    <h:outputLabel value="Photo" for="Photo" style="font-size: 20px;" />
+                    <p:inputText id="photo" value="#{fournisseurController.selected.photo}" style="font-size: 20px;"  />
+                    <h:outputLabel value="actif" for="actif" />
+                    <p:inputText id="actif" value="#{fournisseurController.selected.actif}"  />
+                    <h:outputLabel value="ville" for="ville" />
+                    <h:selectOneMenu id="ville" value="#{fournisseurController.selected.ville}"  >
+                        <f:selectItems />
+                    </h:selectOneMenu>
+                    <h:outputLabel value="nationalite" for="nationalite" />
+                     <p:autoComplete id="nationalite" size="30" dropdown="true" var="resultnationalite" itemValue="#{resultnationalite}" itemLabel="#{resultnationalite.libelle}" 
+                                   value="#{fournisseurController.selected.nationalite}" completeMethod="#{fournisseurController.autocompleteNationalite}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultantecedant.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+                   
+                </h:panelGrid>
+              <br />
+                &nbsp; &nbsp;<h:commandLink  action="#{fournisseurController.create}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{fournisseurController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+          
+        </ui:define>
+        <ui:define name="body">
+           
+            <h:form>
+                 <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Modification Fournisseur" >
+                <h:panelGrid columns="4">
+                   <h:outputLabel value="code" for="code" />
+                    <p:inputText id="code" value="#{fournisseurController.selected.code}"  />
+                    <h:outputLabel value="nom" for="nom" />
+                    <p:inputText id="nom" value="#{fournisseurController.selected.nom}"  />
+                    <h:outputLabel value="Matricule fiscale" for="matriculefiscale" />
+                    <p:inputText id="matriculefiscale" value="#{fournisseurController.selected.matriculefiscale}"  />
+                    <h:outputLabel value="adresse" for="adresse" />
+                    <p:inputText id="adresse" value="#{fournisseurController.selected.adresse}"  />
+                    <h:outputLabel value="code postale" for="codepostale" />
+                    <p:inputText id="codepostale" value="#{fournisseurController.selected.codepostale}"  />
+                    <h:outputLabel value="tel" for="tel" />
+                    <p:inputText id="tel" value="#{fournisseurController.selected.tel}"  />
+                    <h:outputLabel value="fax" for="fax" />
+                    <p:inputText id="fax" value="#{fournisseurController.selected.fax}" />
+                    <h:outputLabel value="mail" for="mail" />
+                    <p:inputText id="mail" value="#{fournisseurController.selected.mail}" title="mail" />
+                    <h:outputLabel value="por" for="por" />
+                    <p:inputText id="por" value="#{fournisseurController.selected.por}"  />
+                    <h:outputLabel value="date creation" for="datecreation" />
+                    <p:calendar id="datecreation" navigator="true"  pattern="dd/MM/yyyy" value="#{fournisseurController.selected.datecreation}" />
+
+                   
+                    <h:outputLabel value="date creation fiche" for="datecreationfiche" />
+                     <p:calendar navigator="true"  pattern="dd/MM/yyyy" value="#{fournisseurController.selected.datecreationfiche}" />
+
+                   
+                    <h:outputLabel value="derniere date modif" for="dernieredatemodif" />
+                                         <p:calendar navigator="true"  pattern="dd/MM/yyyy" value="#{fournisseurController.selected.dernieredatemodif}" />
+
+                    <h:outputLabel value="photo" for="photo" />
+                    <p:inputText id="photo" value="#{fournisseurController.selected.photo}"  />
+                    <h:outputLabel value="actif" for="actif" />
+                    <p:inputText id="actif" value="#{fournisseurController.selected.actif}"  />
+                    <h:outputLabel value="ville" for="ville" />
+                    <h:selectOneMenu id="ville" value="#{fournisseurController.selected.ville}"  >
+                        <f:selectItems />
+                    </h:selectOneMenu>
+                    <h:outputLabel value="nationalite" for="nationalite" />
+                    <h:selectOneMenu id="nationalite" value="#{fournisseurController.selected.nationalite}"  >
+                        <f:selectItems value="#{nationaliteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+              <br />
+              &nbsp; &nbsp;<h:commandLink  action="#{fournisseurController.update}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{fournisseurController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

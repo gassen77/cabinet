@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+      
+        <ui:define name="body">
+  
+               <script>
+                        function disableClick(){
+   document.getElementById('saveButton').disables = true;
+   setTimeout('document.getElementById(\'saveButton\').disables = false', 5000); 
+}
+              function width1()
+                             {  try{
+                                 var pagewidth=window.screen.availWidth; 
+                                var wi=window.screen.availWidth; 
+                                DPR = window.devicePixelRatio;
+                           //wi=wi*DPR;
+                      
+                       document.getElementById('f7:larg').value= wi;
+                            document.getElementById('f7:zoom').value= DPR;
+                    document.getElementById('f7:b3').click();  
+                             }
+                             catch(e){alert(e.toString());}
+                    }
+                    </script>
+            <style type="text/css">
+                #mon_div {
+                    height: 50px;
+                    position: fixed;
+                    bottom: 0px;
+                }
+            </style> 
+            <h:form id="formR">
+                  <p:focus id="lp"  for="MOp"/>  
+                <p:growl id="growl" showDetail="true"/> 
+                <p:panel id="panel012"  toggleable="true" header="Modification Reglement Patient"  style="height: 258px;font-weight: bold;font-size: 20px;">
+                  <p:focus context="cln"/>  
+                  <h:panelGrid columns="4">
+                   
+                  
+                    <h:outputLabel value=" Patient"/>
+                    <p:autoComplete  id="cln"   value="#{reglementComController.currentTiers}"  completeMethod="#{reglementComController.autocompleteClient}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.nom}">
+                                    <h:column >#{result.nom}</h:column> 
+                                    <p:ajax event="itemSelect" update="cln :formR" listener="#{reglementComController.changeClient()}"/> 
+                                     
+                                    <f:facet name="itemtip">  
+                       <f:facet name="header">  
+                            <h:column >#{result.nom}</h:column>   </f:facet>  
+                        </f:facet>  
+                        </p:autoComplete>          
+                      <h:outputLabel value="Mode Reglement" />
+                         <p:autoComplete  id="MOp"   value="#{reglementComController.currentModeReglement}"  completeMethod="#{reglementComController.autocompleteModeReglement}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.libelle}" >
+                                  
+                                    <p:ajax event="itemSelect" update="growl MOp calecheance lp RE MO REC EM" listener="#{reglementComController.changeModeReglement()}"/> 
+                        <p:column>
+                                                <h:outputLabel value="#{result.libelle}"/>
+                                            </p:column>
+                         </p:autoComplete>
+                            
+                         
+                        
+                        <h:outputLabel value="Ech&eacute;ance" />
+                        <p:calendar  navigator="true"     id="calecheance" pattern="dd/MM/yyyy" value="#{reglementComController.selected.dateechenace}"   binding="#{reglementComController.inputTextEcheance}">
+                            <p:ajax event="dateSelect"  update="@this" listener="#{reglementComController.changeEcheancetest()}" />
+                            <p:ajax event="dateSelect"  update="growl,@this" listener="#{reglementComController.changeEcheance()}" immediate="true" />
+                     
+
+                        </p:calendar>
+                        
+                        <h:outputLabel value="R&eacute;f&eacute;rence" />
+                        <p:inputText id="RE" value="#{reglementComController.selected.reference}" binding="#{reglementComController.inputTextReference}"><p:ajax event="change"  update="@this,growl" listener="#{reglementComController.changeRefChequeTraiteVirement()}"/></p:inputText>
+                         
+                        
+                        <h:outputLabel value="Banque" />
+                       
+                        <p:autoComplete  id="MO"   value="#{reglementComController.currentBanque}"  completeMethod="#{reglementComController.autocompleteBanque}"  var="result"  maxResults="10" size="40"   itemValue="#{result}" dropdown="true" itemLabel="#{result.libelle}"  binding="#{reglementComController.inputTextBanque}">
+                                    <h:column >#{result.libelle}</h:column> 
+                                    <p:ajax event="itemSelect" update="RE,MO,growl" listener="#{reglementComController.changeRefChequeTraiteVirement()}"/> 
+                                  
+                        </p:autoComplete>
+                         
+                          
+                        <h:outputLabel value="Re&ccedil;u" />
+                        <p:inputText id="REC" value="#{reglementComController.selected.recu}" rendered="#{reglementComController.inputTextRecu}">
+                            <f:ajax event="change"/></p:inputText>
+                        
+                        
+                         
+                         
+                         
+                        <h:outputLabel value="  Emetteur"/>
+                        <p:inputText id="EM"    value="#{reglementComController.selected.emetteur}" binding="#{reglementComController.inputTextEmetteur}">
+                            <f:ajax event="change"/>
+                        </p:inputText>       
+                        
+<h:outputLabel value="Date" />
+<p:calendar  navigator="true"  pattern="dd/MM/yyyy" value="#{reglementComController.selected.dateoperation}" ><p:ajax event="dateSelect" update="@this"  listener="#{reglementComController.changeDate()}"/></p:calendar>
+            <h:outputLabel value="Montant"/>
+            <p:inputText id="MON" onclick="this.select();" value="#{reglementComController.selected.montantoperation}" >
+                            <p:ajax event="blur" update="MON :formR" listener="#{reglementComController.changeMantant}"  />
+                            </p:inputText>
+               <h:outputText rendered="#{reglementComController.flag_reste}"  value="Reste :" />
+                    <h:outputText style="color: #ee0101;" rendered="#{reglementComController.flag_reste}" value="#{reglementComController.resteR}"/>
+               
+                <br/>
+                </h:panelGrid>
+                    </p:panel>     
+                <p:panel header="Affectation Visite Patient" style="font-size: 20px;">
+                    <center>
+                    <h:panelGrid columns="5">
+                        <h:outputLabel value="Date d&eacute;but" style="font-weight: bold;font-size: 16px;" />
+                        <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{reglementComController.dateRegAutoDebut}"><p:ajax event="dateSelect" update="@this"/></p:calendar>
+                     
+                     <h:outputLabel value="Date Fin"  style="font-weight: bold;font-size: 16px;" />
+                     <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{reglementComController.dateRegAutoFin}"><p:ajax event="dateSelect" update="@this"/></p:calendar>
+                     <h:commandButton value="Lettrer" action="#{reglementComController.prepareAuto()}" style="font-weight: bold;font-size: 16px;"/>
+                    </h:panelGrid>
+                        </center>
+                </p:panel>
+                <br/>
+                <center>
+                    <p:dataTable emptyMessage="Liste Vide"  style="font-size: 20px;" id="lettrage" value="#{reglementComController.lettrage}" rowIndexVar="rkv" var="cap"  binding="#{reglementComController.dataTableLettrage}"   >
+                <p:column style="width: 10%!important">
+                    <center>
+                   <f:facet name="header"><h:outputText value="Type operation"/></f:facet>
+                  
+                   <p:autoComplete style = "width: 100%"  inputStyle = "width: 100%"  id="tyop"   value="#{cap.typeOPAL}"  completeMethod="#{reglementComController.autocompleteTypeOpCom}"  var="result"  maxResults="10" size="20"   itemValue="#{result}" dropdown="true" itemLabel="#{result.libelle}" >
+                                    <h:column >#{result.libelle}</h:column> 
+                                    <p:ajax event="itemSelect" update="tyop M " /> 
+                      </p:autoComplete> 
+                   </center>
+                </p:column>
+               
+                        <p:column style="width: 5%!important">
+                            <center><f:facet name="header"><h:outputText value="S&egrave;lection"/></f:facet>   
+                        <p:commandButton  id="m" value="+"  title="View"   onclick="PF('dlg').show()"   style="font-size:10pt;" actionListener="#{reglementComController.changeListNumPiece()}" update="@this :pp:let"></p:commandButton>
+                            </center>
+                        </p:column>
+               <p:column style="width: 20%!important">
+                   <center>
+                   <f:facet name="header"><h:outputText value="N Pi&egrave;ce"/></f:facet>
+                   
+                   <p:inputText style = "width: 100%" id="tyop13" value="#{cap.niPiece.numerooperation}" disabled="true" size="8" />
+                  
+                   </center>
+                </p:column>
+                <p:column style="width: 15%!important">
+                    <center>
+                   <f:facet name="header"><h:outputText value="Montant Pi&egrave;ce"/></f:facet>
+                   <p:inputText style = "width: 100%" id="M" value="#{cap.montantPiece}" disabled="true" />
+                   </center>
+                </p:column>
+                <p:column style="width: 15%!important">
+                    <center>
+                   <f:facet name="header"><h:outputText value="Acompte"/></f:facet>
+                   <p:inputText style = "width: 100%"  id="M5968" value="#{reglementComController.accompte.get(rkv)}" disabled="true" />
+                   </center>
+                </p:column>
+                    <p:column style="width: 10%!important">
+                        <center>    
+                        
+                   <f:facet name="header"><h:outputText value="Montant R&egrave;glement"/></f:facet>
+                   <p:inputText style = "width: 100%" id="MO239" value="#{cap.montantReg}" disabled="true"  /></center> 
+                </p:column>
+                     <p:column style="width: 15%!important">
+                         <center> 
+                   <f:facet name="header"><h:outputText value="Affectation"/></f:facet>
+                   <p:inputText  style = "width: 100%"  id="MO23" value="#{cap.soldePiece}"> <p:ajax event="change" update="MO23 :formR"  listener="#{reglementComController.changementAff()}"  />  </p:inputText></center> 
+                </p:column>
+                        
+                        <p:column style=" height:36px;width: 5%!important">
+                                <f:facet name="header"><h:outputText value="+"/> </f:facet>
+                                <p:commandLink actionListener="#{reglementComController.ajouteLettrage()}"  update=":formR" >
+                                    <h:graphicImage value="/img/plus+++++++1.jpg" style="border:1px;"/>
+                                </p:commandLink>
+                        </p:column>
+                            <p:column style=" height:36px;width: 5%!important">
+                                <f:facet name="header"><h:outputText value="-"/> </f:facet>
+                                <p:commandLink action="#{reglementComController.supprimerLettrage()}" update=":formR" >
+                                    <h:graphicImage value="/img/icone_supprimer.gif" style="border:1px;"/>
+                                </p:commandLink>
+                            </p:column>  
+                </p:dataTable>        
+              </center>
+           
+                </h:form>
+          <div id="mon_div">
+              <h:form id="fe">
+            
+                  &nbsp; &nbsp;  <h:commandButton id="saveButton"  onclick="disableClick()" image="/img/save.gif"    action="#{reglementComController.updateReglement()}" title="Sauvegarder"   >
+                
+                </h:commandButton>
+               &nbsp; &nbsp;
+                 
+            
+               <h:commandLink action="#{reglementComController.acceePrepareListReglementFromCreate()}" title="Afficher List" immediate="true"><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;
+                 <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" style="border:0px;" /></h:commandLink>
+            </h:form>
+               <h:form id="f7">
+               <p:inputText value="0" id="larg" style="display: none;"/>
+                        <p:inputText value="0" id="zoom" style="display: none;"/>
+               <p:commandLink style="display: none;" id="b3" onclick="large({larg:document.getElementById('f7:larg').value,zoom:document.getElementById('f7:zoom').value})" />
+
+              
+               <p:remoteCommand name="large" actionListener="#{reglementComController.updatelargeurpage()}"/>
+
+      
+             </h:form>
+          </div>
+                <p:dialog id="dialog" widgetVar="dlg"  modal="true" width="1200" header="Ajouter Des Pi&egrave;ces"   >  
+                   <h:form id="pp">
+                       <p:dataTable emptyMessage="Liste Vide"  var="car" id="let" value="#{reglementComController.tableOperationM}" rowKey="#{car}" binding="#{reglementComController.dataTabledetailLettrage}" style="border:solid 1px; layout: block!important;max-height: 400px!important;overflow:scroll!important; height: 400px " >  
+                        
+                                    <p:column headerText="Date">  
+                                        <h:outputText value="#{car.operation.dateSys}"   >  <f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText> 
+                                    </p:column>  
+
+                           <p:column  >  
+
+                                        <f:facet name="header">
+                                           <h:outputText value="N Pi&egrave;ce" />
+             <br/>
+                                            <p:inputText id="idFiltre" value="#{reglementComController.filtreNumPiece}"  onkeypress="if (event.keyCode==13) {alert('La recherche est terminée !')}" size="10"  style="font-size: 14px" ><p:ajax update="@this,:pp:let" event="blur" listener="#{reglementComController.chercherListNumPiece()}"/></p:inputText> 
+                    
+                     
+                                        </f:facet>
+                               <h:outputText value="#{car.operation.numerooperation}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Acompte">  
+                                        <h:outputText value="#{car.acompte}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Solde">  
+                                        <h:outputText value="#{car.montantReglement}" />  
+                                    </p:column>  
+                             <p:column style="width:4%">  
+                                 <p:commandLink id="selectButton" value="Ajouter" onclick="PF('dlg').hide()" update=":formR"  title="Ajouter" actionListener="#{reglementComController.onRowSelectOperationM()}" >
+                                    
+                                 </p:commandLink>
+                             </p:column>
+                    </p:dataTable>  
+</h:form> 
+                       
+                    </p:dialog>
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

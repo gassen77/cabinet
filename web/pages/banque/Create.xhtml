@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+        </ui:define>
+        <ui:define name="body">
+           
+            <h:form>
+                 <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Creation Banque" style="font-size: 20px;" >
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Code" for="code" style="font-size: 20px;" />
+                    <p:inputText id="code" value="#{banqueController.selected.code}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Libelle" for="libelle" style="font-size: 20px;" />
+                    <p:inputText id="libelle" value="#{banqueController.selected.libelle}" style="font-size: 20px;" />
+                </h:panelGrid>
+               <br />
+                &nbsp; &nbsp;<h:commandLink  action="#{banqueController.create}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{banqueController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+                 </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

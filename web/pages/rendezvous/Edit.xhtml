@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            
+        </ui:define>
+        <ui:define name="body">
+           
+            <h:form>
+                  <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Modification Rendez-Vous" style="font-size: 20px;" >
+                <h:panelGrid columns="2">
+                 <h:outputLabel value="Client" for="client" style="font-size: 20px;" />
+                      <p:autoComplete id="client" style="font-size: 20px;" size="30" dropdown="true" var="resultClient" itemValue="#{resultClient}" itemLabel="#{resultClient.nom}" 
+                                     maxResults="10"    value="#{rendezvousController.selected.client}"  completeMethod="#{rendezvousController.autocompleteClient}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;" value="#{resultClient.nom}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                    <h:outputLabel value="Date rendez vous" for="daterendezvous" style="font-size: 20px;" />
+                    <p:calendar id="daterendezvous" navigator="true"   pattern="dd/MM/yyyy HH:mm" style="font-size: 20px;" value="#{rendezvousController.selected.daterendezvous}" />
+
+                    <h:outputLabel value="Heure rendez vous" for="heurerendezvous" style="font-size: 20px;" />
+                    <p:calendar id="heurerendezvous" navigator="true"   pattern="dd/MM/yyyy HH:mm" style="font-size: 20px;" value="#{rendezvousController.selected.heurerendezvous}" />
+
+                   
+                    <h:outputLabel value="Raison" for="raison" style="font-size: 20px;" />
+                     <p:inputTextarea id="raison" value="#{rendezvousController.selected.raison}"  style="font-size: 20px; width: 500px;"  />
+                  
+                </h:panelGrid>
+                  <br />
+                  &nbsp; &nbsp;<h:commandLink  action="#{rendezvousController.update}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{rendezvousController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

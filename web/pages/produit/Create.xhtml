@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+           
+        </ui:define>
+        <ui:define name="body">
+            <style type="text/css">
+            .ui-panelgrid td {
+border:0 !important;
+}   
+table table td { border: 0; }
+    #mon_div {
+                    height: 50px;
+                    position: fixed;
+                    bottom: 0px;
+                }
+                .columnLabel { 
+width: 200px;	
+} 
+.className td {
+        vertical-align: top;
+    }
+            </style>
+            <h:form id="f">
+                 <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Creation Produit" style="font-size: 20px;" >
+                     <p:tabView widgetVar="tab" id="tabView58">
+                      <p:tab id="tab113" title="Fiche Produit">
+                <h:panelGrid columns="4">
+                     <h:outputLabel value="Code" for="code" style="font-size: 20px;"/>
+                     <p:inputText id="code" value="#{produitController.selected.codeproduit}" style="font-size: 20px;" />
+                    <h:outputLabel value="Libelle" for="libelle" style="font-size: 20px;" />
+                    <p:inputText id="libelle" value="#{produitController.selected.libelleproduit}" size="40" style="font-size: 20px;" />
+                    <h:outputLabel value="Reference" for="reference" style="font-size: 20px;" />
+                    <p:inputText id="reference" value="#{produitController.selected.reference}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Qte en stock" for="qteenstock" style="font-size: 20px;" />
+                    <p:inputText id="qteenstock" value="#{produitController.selected.qteenstock}" style="font-size: 20px;" >
+                   
+                                    
+                        <f:convertNumber minFractionDigits="3" locale="en-US"  />     
+                          <p:ajax event="blur"  update="@this"  />
+                                </p:inputText>
+                  
+                     <h:outputLabel value="Prix achat" for="prixachat" style="font-size: 20px;" />
+                    <p:inputText id="prixachat" value="#{produitController.selected.prixachat}" style="font-size: 20px;" >
+                         
+                         <f:convertNumber minFractionDigits="3" locale="en-US"  />     
+                           <p:ajax event="blur"  update="@this"  />
+                                </p:inputText>
+                    <h:outputLabel value="Unite" for="unite"  style="font-size: 20px;" />
+                         <p:autoComplete id="unite" size="35" dropdown="true" var="resultunite" style="font-size: 20px;" itemValue="#{resultunite}" itemLabel="#{resultunite.libelle}" 
+                                value="#{produitController.selected.unite}" completeMethod="#{produitController.autocompleteUnite}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;" value="#{resultunite.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete>
+                  
+                    <h:outputLabel value="Fournisseur" for="fournisseur" style="font-size: 20px;" />
+                  
+                    <p:autoComplete id="fournisseur" size="35" dropdown="true" var="resultfournisseur" style="font-size: 20px;" itemValue="#{resultfournisseur}" itemLabel="#{resultfournisseur.nom}" 
+                                  value="#{produitController.selected.fournisseur}" completeMethod="#{produitController.autocompleteFournisseur}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultfournisseur.nom}" style="font-size: 20px;" />
+                                            </p:column>
+                                        </p:autoComplete>  
+                    <h:outputLabel value="Famille" for="famille" style="font-size: 20px;" />
+                     <p:autoComplete id="famille" size="35" dropdown="true" var="resultfamille" style="font-size: 20px;" itemValue="#{resultfamille}" itemLabel="#{resultfamille.libelle}" 
+                                value="#{produitController.selected.famille}" completeMethod="#{produitController.autocompleteFamille}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultfamille.libelle}" style="font-size: 20px;"/>
+                                            </p:column>
+                                        </p:autoComplete>
+                    
+                    <h:outputLabel value="Categorie Produit" for="categorieproduit" style="font-size: 20px;" />
+                     <p:autoComplete id="categorieproduit" size="35" dropdown="true" var="resultcategorieproduit" style="font-size: 20px;" itemValue="#{resultcategorieproduit}" itemLabel="#{resultcategorieproduit.libelle}" 
+                                value="#{produitController.selected.categorieproduit}" completeMethod="#{produitController.autocompletecategorieproduit}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;" value="#{resultcategorieproduit.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete>
+                      <h:outputLabel value="Commentaire" for="commentaire" style="font-size: 20px;" />
+                    <p:inputTextarea style="width:500px;height:100px; font-size: 25px;" id="commentaire" value="#{produitController.selected.commentaire}"  />
+                  
+                       </h:panelGrid>
+                         
+                    </p:tab>
+                    <p:tab id="tab12" title="Image">
+                       <h:panelGrid columns="1" id="container" border="1">
+                     <h:form id="form12">
+                                <p:fileUpload
+                    update="messages,imgTier23,:f"
+                    allowTypes="/(\.|\/)(jpe?g)$/"
+                    auto="true"
+                    multiple="false"
+                    label="Télécharger"
+                    mode="advanced"
+                    style="width: 250px;"
+                    fileUploadListener="#{produitController.handleFileUpload}">
+                    <p:graphicImage id="imgTier23" width="250" height="250" value="#{produitController.selected.image}" />
+                    </p:fileUpload>
+                    <p:growl id="messages" showDetail="false"/>
+                      
+                        </h:form>
+                    </h:panelGrid>
+                  
+                    </p:tab>
+             </p:tabView>
+                 <br />
+                &nbsp; &nbsp;<h:commandLink  action="#{produitController.create}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{produitController.prepareList}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+    </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

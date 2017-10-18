@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value=" #{modeleRapportComController.pageActuelle} Mod&egrave;le Rapport"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+           <style type="text/css">
+                #mon_div {
+                    height: 50px;
+                    position: fixed;
+                    bottom: 0px;
+                }
+            </style>
+            <h:form id="f1">
+                <p:growl id="growl" showDetail="true" sticky="true" />  
+                <p:panel header="#{modeleRapportComController.pageActuelle} Mod&egrave;le  ">
+                    
+                    <h:panelGrid columns="6" cellspacing="5" >
+                       
+                        <h:outputLabel value="Format" for="nomModele" />
+                        <p:inputText id="nomModele" value="#{modeleRapportComController.selected.nomModele}" title="Format" required="true" requiredMessage="Nom Modele vide ou invalide" style="margin-left: 15px;width: 280px;" />
+                       
+                          </h:panelGrid>
+                   
+                    <h:outputLabel value="Page :" style="font-size: 16px;font-weight: bold;text-decoration: underline;" /> 
+                    <h:panelGrid columns="6" cellspacing="5" >
+                        <h:outputLabel value="Longueur" for="pageHeight" />
+                        <p:inputText id="pageHeight" value="#{modeleRapportComController.selected.pageHeight}" title="Longueur de la page" >
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        <h:outputLabel value="Largeur" for="pageWidth" />
+                        <p:inputText id="pageWidth" value="#{modeleRapportComController.selected.pageWidth}" title="Largeur de la page" >
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        <h:outputLabel value="Orientation" for="orientation :" style="margin-left: 15px;" />
+                        
+                        <p:selectOneRadio id="orientation" value="#{modeleRapportComController.selected.orientation}" >  
+            <f:selectItem itemLabel="portrait" itemValue="1" ></f:selectItem>
+            <f:selectItem itemLabel="paysage" itemValue="2" ></f:selectItem>
+            <p:ajax  event="change" update="orientation"  immediate="true" />
+            
+            </p:selectOneRadio>  
+                       </h:panelGrid>
+                    
+                    <h:outputLabel value="Ent&ecirc;te :" style="font-size: 16px;font-weight: bold;text-decoration: underline;" /> 
+                   
+                    <h:outputLabel value="Colonnes :" style="font-size: 16px;font-weight: bold;text-decoration: underline;margin-left: 240px;" /> 
+                  <h:outputLabel value="Corps :" style="font-size: 16px;font-weight: bold;text-decoration: underline; margin-left: 320px;" /> 
+                   <h:outputLabel value="Pieds :" style="font-size: 16px;font-weight: bold;text-decoration: underline;margin-left: 220px;" />
+                   
+           
+                       <h:panelGrid columns="20" cellspacing="5" >
+                        <h:outputLabel value="Longueur"  />
+                        <p:inputText  value="#{modeleRapportComController.header.heightRapport}" title="" size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        <h:outputLabel value="Largeur"  />
+                        <p:inputText  value="#{modeleRapportComController.header.widthRapport}"  size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        
+                      
+                        <h:outputLabel value="Longueur"  />
+                        <p:inputText value="#{modeleRapportComController.columnHeader.heightRapport}" size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        <h:outputLabel value="Largeur"  />
+                        <p:inputText value="#{modeleRapportComController.columnHeader.widthRapport}"  size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        <h:outputLabel value="Traçage" />
+                        <p:selectBooleanButton id="trace" value="#{modeleRapportComController.columnHeader.tracageLigne}" onLabel="Oui" offLabel="Non" onIcon="ui-icon-check" offIcon="ui-icon-close"><p:ajax update="@this" event="change"/></p:selectBooleanButton>
+                      
+                     
+                        <h:outputLabel value="Longueur"  />
+                        <p:inputText value="#{modeleRapportComController.body.heightRapport}"  size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        <h:outputLabel value="Largeur"  />
+                        <p:inputText  value="#{modeleRapportComController.body.widthRapport}"  size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                      <h:outputLabel value="Traçage" />
+                        <p:selectBooleanButton id="traceBody" value="#{modeleRapportComController.body.tracageLigne}" onLabel="Oui" offLabel="Non" onIcon="ui-icon-check" offIcon="ui-icon-close"><p:ajax update="@this" event="change"/></p:selectBooleanButton>
+                      
+                     
+                        <h:outputLabel value="Longueur" />
+                        <p:inputText value="#{modeleRapportComController.footer.heightRapport}"   size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                        <h:outputLabel value="Largeur"  />
+                        <p:inputText  value="#{modeleRapportComController.footer.widthRapport}"   size="5">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                       
+                       
+                      
+                       </h:panelGrid>
+                  
+                    
+                </p:panel>
+                <br />
+  <h:panelGroup id="panelDetailsrapports">
+                   
+                        <p:dataTable emptyMessage="Liste Vide"    value="#{modeleRapportComController.rapportdetails}"
+                                     rowIndexVar="ligne" var="item" binding="#{modeleRapportComController.rapportdetailstable}"
+                                     id="DetailsrapportsTable"  style="width: 100%;">
+                        <p:column headerText="Zone">
+                        
+                            <p:autoComplete   id="zone" value="#{modeleRapportComController.lignezonerapportchoice}"  completeMethod="#{modeleRapportComController.autocompleteTypeZone}"  var="result"  maxResults="10" size="4"   itemValue="#{result}" dropdown="true" itemLabel="#{result}"  >
+                                    <h:column >#{result}</h:column> 
+                                    <p:ajax event="itemSelect" update="zone" listener="#{modeleRapportComController.zonerapportselectedlistner()}"/> 
+                      </p:autoComplete> 
+                          
+                        </p:column>
+                        <p:column headerText="Type">  
+                         
+                           
+                                <p:autoComplete   id="typedetail" value="#{item.type}"  completeMethod="#{modeleRapportComController.autocompleteTypeDetail}"  var="result"  maxResults="10" size="2"   itemValue="#{result}" dropdown="true" itemLabel="#{result}"  >
+                                    <h:column >#{result}</h:column> 
+                                    <p:ajax event="itemSelect" update="typedetail" /> 
+                      </p:autoComplete> 
+               
+                        </p:column>
+                        <p:column headerText="D&eacute;signation Fixe" width="250">  
+                         
+                            <p:inputText value="#{modeleRapportComController.expresssionchampdesignationfixe}" size="17">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                           
+                        </p:column>
+                        <p:column headerText="D&eacute;signation Info" width="250">
+                            
+                            <p:autoComplete   id="designinfo" value="#{modeleRapportComController.expresssionchampdesignationinfo}"  completeMethod="#{modeleRapportComController.autocompleteexpressioninfo}"  var="result"   size="20"   itemValue="#{result}" dropdown="true" itemLabel="#{result}" scrollHeight="200" forceSelection="true">
+                                    <h:column >#{result}</h:column> 
+                                    <p:ajax event="itemSelect" update="designinfo" listener="#{modeleRapportComController.expressioninfoselectedlistner()}" /> 
+                      </p:autoComplete>  
+                              
+                        </p:column>
+                        <p:column headerText="Ligne">
+                            <center> 
+                            <p:inputText value="#{item.topRapport}" size="1">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                            </center>
+                        </p:column>
+                        <p:column headerText="Coln">
+                            <center>
+                                <p:inputText value="#{item.leftRapport}" size="1">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                            </center>
+                        </p:column>
+                        <p:column headerText="Long">
+                            <center>
+                                <p:inputText value="#{item.widthRapport}" size="1">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                            </center>
+                        </p:column>
+                        <p:column headerText="Epaisse">
+                            <center>
+                                <p:inputText value="#{item.heightRapport}" size="1">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                            </center>
+                        </p:column>
+                           <p:column headerText="Police">
+                            <center>
+                                <p:inputText value="#{item.fontSize}" size="1">
+                                                           <p:ajax update="@this" event="blur"/>
+                        </p:inputText>
+                            </center>
+                        </p:column>
+                            <p:column headerText="Style" width="200" >
+                             <center>
+                             <p:selectManyButton id="select" value="#{modeleRapportComController.selectedStyle}" style="width: 150px;" >  
+        <f:selectItem itemLabel="G" itemValue="Bold"  />  
+        <f:selectItem itemLabel="I" itemValue="Italic" />  
+        <f:selectItem itemLabel="S" itemValue="Underline" /> 
+        <p:ajax update="select" event="change" listener="#{modeleRapportComController.styleselectedlistner()}"/>
+    </p:selectManyButton>  
+                             </center>
+                        </p:column>
+                            <p:column  headerText="Align" width="220">
+                           <center>
+                                <p:selectOneButton id="align" value="#{item.alignement}" style="width: 200px;" >  
+            <f:selectItem itemLabel="G" itemValue="1" ></f:selectItem>
+            <f:selectItem itemLabel="M" itemValue="2" ></f:selectItem>
+            <f:selectItem itemLabel="D" itemValue="3" ></f:selectItem>
+            <p:ajax update="align" event="change" immediate="true" /> 
+                                </p:selectOneButton>
+                           </center>
+                        </p:column>
+                       <p:column headerText="Dépasser">
+                            <center>
+                                <p:selectBooleanButton  value="#{item.stretchWithOverFlow}" onLabel="O" offLabel="N" onIcon="ui-icon-check" offIcon="ui-icon-close">     <p:ajax update="@this" event="change"  /> </p:selectBooleanButton>
+                            </center>
+                        </p:column> 
+                            <p:column headerText="Actions">
+                                
+                                   <p:commandLink update=":f1" actionListener="#{modeleRapportComController.ajouterLigne()}" immediate="true">
+                                <h:graphicImage height="20px" width="20px" value="/img/plus.png"/>
+                            </p:commandLink>
+                            <h:outputText value="      "/>
+                            <p:commandLink update=":f1" actionListener="#{modeleRapportComController.supprimerLigne()}" immediate="true">
+                                <h:graphicImage height="20px" width="20px" value="/img/moin.png"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                
+                </h:panelGroup>
+               <br/>
+               <div id="mon_div">
+               &nbsp; &nbsp;<h:commandLink  action="#{modeleRapportComController.valider()}" title="Sauvegarder" ><h:graphicImage value="/img/sauvegarder32.gif" style="border:0px;" /></h:commandLink>
+                    &nbsp; &nbsp;<h:commandLink immediate="true" action="#{modeleRapportComController.prepareList()}" title="Liste"><h:graphicImage value="/img/show_List32.png" style="border:0px;" /></h:commandLink>
+                    &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+           </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDetailDepotTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDetailDepotEmpty}" rendered="#{detailDepotController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{detailDepotController.items.rowCount > 0}">
+                    <h:outputText value="#{detailDepotController.pagination.pageFirstItem + 1}..#{detailDepotController.pagination.pageLastItem + 1}/#{detailDepotController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{detailDepotController.previous}" value="#{bundle.Previous} #{detailDepotController.pagination.pageSize}" rendered="#{detailDepotController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{detailDepotController.next}" value="#{bundle.Next} #{detailDepotController.pagination.pageSize}" rendered="#{detailDepotController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{detailDepotController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailDepotTitle_qte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qte}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailDepotTitle_produit1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailDepotTitle_depot1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.depot1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{detailDepotController.prepareView}" value="#{bundle.ListDetailDepotViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailDepotController.prepareEdit}" value="#{bundle.ListDetailDepotEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailDepotController.destroy}" value="#{bundle.ListDetailDepotDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{detailDepotController.prepareCreate}" value="#{bundle.ListDetailDepotCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListDetailDepotIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

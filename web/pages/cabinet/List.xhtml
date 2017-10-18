@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+       
+        <ui:define name="body">
+      
+            <h:form styleClass="jsfcrud_list_form">
+                <p:growl id="growl" showDetail="true"/>
+                <p:panel   toggleable="true" header="Liste des Cabinets" style="font-size: 20px;" >
+                    <p:dataTable emptyMessage="Liste Vide" value="#{cabinetController.items}" var="item" style="border:solid 1px;width:100%;" > 
+                            
+                           
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Code" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.code}" style="font-size: 20px;" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Libelle" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.libelle}" style="font-size: 20px;" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Adresse" style="font-size: 20px;"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adresse}" style="font-size: 20px;" />
+                        </p:column>
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tel" style="font-size: 20px;"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tel}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Matricule" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.matricule}" style="font-size: 20px;" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ville" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.ville}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Matricule Fiscale" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.matriculefiscale}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Code Postal" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.codepostal}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+        <h:commandButton value="Rechercher" action="#{cabinetController.rechercherListItems()}"/>
+
+                            </f:facet>
+                          
+                             <h:commandLink  action="#{cabinetController.prepareEdit}" title="Modifier"><h:graphicImage value="/img/modifier.gif" style="border:0px;"/></h:commandLink>
+                            <h:outputText value=" "/>
+                            <h:commandLink  action="#{cabinetController.destroy}" title="Supprimer"><h:graphicImage value="/img/supprimer.gif" style="border:0px;" /></h:commandLink>
+                   
+                        </p:column>
+                         <f:facet name="footer">
+                            <center>
+                            <h:commandLink title="Premiere Page" action="#{cabinetController.premierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_premiere_page.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="precedant" action="#{cabinetController.previous()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_precedant.png"/>
+                            </h:commandLink>
+                            #{cabinetController.pagination.currentPage()}..#{cabinetController.pagination.totalPages()}
+                            <h:commandLink title="suivant" action="#{cabinetController.next()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_suivant.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="Derniere Page" action="#{cabinetController.dernierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_derniere_page.png"/>
+                            </h:commandLink>
+                            </center><br/>
+                            <center>
+                                <p:inputText size="5" value="#{cabinetController.pageDestination}"/>
+                                <h:commandButton value="Page" title="Derniere Page" action="#{cabinetController.goPageDestination()}"/>
+                            </center>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <br />
+          &nbsp;&nbsp;<h:commandLink action="#{cabinetController.prepareCreate}" title="creer"><h:graphicImage value="/img/file_add.png" style="border:0px;"/></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+           
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

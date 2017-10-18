@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Mod&egrave;le Sortie"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <style type="text/css">
+                #mon_div {
+                    height: 50px;
+                    position: fixed;
+                    bottom: 0px;
+                }
+            </style>
+            <h:panelGroup id="messagePanel" layout="block">
+                <p:growl/>
+            </h:panelGroup>
+            <h:form id="f1">
+                <p:panel header="#{blNonFacture.pageActuelle}">
+                    <center>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Mod&egrave;le"/>
+                        <p:selectOneMenu required="true" requiredMessage="veuillez saisir le modele" value="#{blNonFacture.modeleChoisi}">
+                            <f:selectItems value="#{blNonFacture.itemsAvailableSelectOneNomTablesJournal}"/>
+                            <p:ajax event="change" listener="#{blNonFacture.changeModelNonJournal}" update=":f1"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Date D&eacute;but"/>
+                        <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{blNonFacture.date1}"/>
+                        <h:outputLabel value="Date Fin"/>
+                        <p:calendar  navigator="true"   pattern="dd/MM/yyyy" value="#{blNonFacture.date2}"/>
+                    </h:panelGrid>
+                    </center>
+                </p:panel>
+                <h:panelGroup id="panelProdDetailsTableJournauxRapport">
+                    <center>
+                    <p:dataTable binding="#{blNonFacture.dataTableDetails}" emptyMessage="Liste Vide" var="det" value="#{blNonFacture.detailsModele}"
+                                 rowKey="#{det.idDetailModeleSortie}">
+                        <p:column headerText="Colonne">
+                            <h:outputText value="#{det.nomColonne}"/>
+                            <h:outputText rendered="#{det.appelePar!=null}" value="(#{det.appelePar})"/>
+                        </p:column>
+                        <p:column headerText="Valeur Filtrage">  
+                            <center>
+                                <p:autoComplete dropdown="true" scrollHeight="250" size="40" var="resultDyn" itemValue="#{resultDyn}" itemLabel="#{resultDyn}" 
+                                                 value="#{det.valueLikeColonne}" completeMethod="#{blNonFacture.autocompleteCodeNomDynamique}" >
+                                    <p:column>
+                                        <h:outputLabel value="#{resultDyn}"/>
+                                    </p:column>
+                                </p:autoComplete>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                    </center>
+                </h:panelGroup>
+                <div style="height: 150px;"></div>
+                <div id="mon_div">
+                    &nbsp; &nbsp;<h:commandLink rendered="#{blNonFacture.boutonEtat|| authetification.flagprivilegeafficherMail}">
+                                     <h:graphicImage value="/img/edit_f2.png" style="border:0px;" rendered="#{authetification.flagprivilegeafficherMail}"/>
+                                    <p:ajax event="click"  update="dialoguePdfs" oncomplete="varDialogPdfs.show()"/>
+                                 </h:commandLink>
+                   &nbsp; &nbsp;   <p:commandLink ajax="false"  title="Pdf" action="#{blNonFacture.genererListItemsBLNonFactureesPdf()}"> <h:graphicImage value="/img/icone_pdf.png" style="border:0px;" /></p:commandLink>
+                
+                     &nbsp; &nbsp;     <p:commandLink ajax="false" title="Excel"  action="#{blNonFacture.genererListItemsBLNonFactureesExcel()}" ><h:graphicImage value="/img/excel_icon_32x32.jpg" style="border:0px;" /></p:commandLink>
+                      
+                    &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+                </div>
+                <p:dialog id="dialoguePdfs" widgetVar="varDialogPdfs"  header="Edition Rapport" width="450">
+                        <center>
+                           
+                          
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Email"/>
+                            <h:inputText value="#{blNonFacture.emailSender}"/>
+                            <h:outputText value="Mot de passe"/>
+                            <h:inputSecret value="#{blNonFacture.passwordEmailSender}"/>
+                            <h:outputText value="Destinataire"/>
+                            <h:inputText value="#{blNonFacture.emailReceiver}"/>
+
+                        </h:panelGrid>
+                          <h:panelGrid columns="30" >
+                        <p:commandLink  ajax="false"  title="Mailing Pdf" action="#{blNonFacture.sendEmailBLNonFactureesPdf()}"><h:graphicImage value="/img/pdfmail.gif" style="border:0px;" /></p:commandLink>
+                         <p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/>
+                          <p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/><p:outputPanel/>
+                        <p:commandLink   ajax="false" title="Mailing Excel" action="#{blNonFacture.sendEmailBLNonFactureesExcel()}"><h:graphicImage value="/img/mailExcel.jpg" style="border:0px;" /></p:commandLink>
+                       </h:panelGrid>
+                        </center>
+                    </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

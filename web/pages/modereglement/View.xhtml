@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewModereglementTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewModereglementLabel_id}"/>
+                    <h:outputText value="#{modereglementController.selected.id}" title="#{bundle.ViewModereglementTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewModereglementLabel_code}"/>
+                    <h:outputText value="#{modereglementController.selected.code}" title="#{bundle.ViewModereglementTitle_code}"/>
+                    <h:outputText value="#{bundle.ViewModereglementLabel_libelle}"/>
+                    <h:outputText value="#{modereglementController.selected.libelle}" title="#{bundle.ViewModereglementTitle_libelle}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{modereglementController.destroyAndView}" value="#{bundle.ViewModereglementDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewModereglementEditLink}"/>
+                <br />
+                <h:commandLink action="#{modereglementController.prepareCreate}" value="#{bundle.ViewModereglementCreateLink}" />
+                <br />
+                <h:commandLink action="#{modereglementController.prepareList}" value="#{bundle.ViewModereglementShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewModereglementIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

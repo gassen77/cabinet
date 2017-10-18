@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                  <p:growl id="growl" showDetail="true"/>
+                  <p:panel   toggleable="true" header="Liste  #{clientController.nompage}" style="font-size: 20px;width: 100%;">
+                    <p:dataTable  emptyMessage="Liste Vide" value="#{clientController.items}" var="item" style="border:solid 1px" > 
+                             
+                        <p:column style="width: 10%!important">
+                            <f:facet name="header">
+                                <h:outputText value="Code" style="font-size: 20px;" />
+                            </f:facet>
+                            <h:outputText value="#{item.code}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column style="width: 20%!important">
+                            <f:facet name="header">
+                                <h:outputText value="Nom" style="font-size: 20px;"/>
+                                 <p:inputText value="#{clientController.clientFiltrage}" style = "width: 80%" />
+                            </f:facet>
+                            <h:outputText value="#{item.nom}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column style="width: 10%!important">
+                            <f:facet name="header">
+                                <h:outputText value="CIN"  style="font-size: 20px;"  />
+                            </f:facet>
+                            <h:outputText value="#{item.cin}" style="font-size: 20px;" />
+                        </p:column>
+                        <p:column style="width: 10%!important">
+                            <f:facet name="header">
+                                <h:outputText value="Numero Fiche" style="font-size: 20px;"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numerofiche}" style="font-size: 20px;"/>
+                        </p:column>
+                        <p:column style="width: 20%!important">
+                            <f:facet name="header">
+                                <h:outputText value="Adresse" style="font-size: 20px;"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adresse}"  style="font-size: 20px;" />
+                        </p:column>
+                        <p:column style="width: 10%!important">
+                            <f:facet name="header">
+                                <h:outputText value="Code Postale" style="font-size: 20px;"   />
+                            </f:facet>
+                            <h:outputText value="#{item.codepostale}"  style="font-size: 20px;" />
+                        </p:column>
+                       
+                        
+                        <p:column style="width: 10%!important">
+                            <f:facet name="header">
+                                <h:outputText value="Ville" style="font-size: 20px;"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ville.libelle}" style="font-size: 20px;"/>
+                        </p:column>
+                        
+                        <p:column style="width: 10%!important">
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+   <h:commandButton value="Rechercher" action="#{clientController.rechercheMultipleCriteres()}"/>
+                        
+                            </f:facet>
+                          
+                            <h:commandLink  action="#{clientController.prepareEdit}" title="Modifier"><h:graphicImage value="/img/modifier.gif" style="border:0px;"/></h:commandLink>
+                            <h:outputText value=" "/>
+                            <h:commandLink  action="#{clientController.destroy}" title="Supprimer"><h:graphicImage value="/img/supprimer.gif" style="border:0px;" /></h:commandLink>
+                   
+                        </p:column>
+                         <f:facet name="footer">
+                            <center>
+                            <h:commandLink title="Premiere Page" action="#{clientController.premierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_premiere_page.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="precedant" action="#{clientController.previous()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_precedant.png"/>
+                            </h:commandLink>
+                            #{clientController.pagination.currentPage()}..#{clientController.pagination.totalPages()}
+                            <h:commandLink title="suivant" action="#{clientController.next()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_suivant.png"/>
+                            </h:commandLink>
+                            <h:commandLink title="Derniere Page" action="#{clientController.dernierePage()}">
+                                <h:graphicImage style="width:20px;height: 20px;" value="/resources/css/list_derniere_page.png"/>
+                            </h:commandLink>
+                            </center><br/>
+                            <center>
+                                <p:inputText size="5" value="#{clientController.pageDestination}"/>
+                                <h:commandButton value="Page" title="Derniere Page" action="#{clientController.goPageDestination()}"/>
+                            </center>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <br />
+                &nbsp;&nbsp;<h:commandLink action="#{clientController.prepareCreate}" title="creer"><h:graphicImage value="/img/file_add.png" style="border:0px;"/></h:commandLink>
+              &nbsp;&nbsp;  <p:commandLink ajax="false"  title="Pdf" action="#{clientController.impressionPdfClient()}"> <h:graphicImage value="/img/logo_pdf.png" style="border:0px;" /></p:commandLink>
+                   
+                &nbsp; &nbsp;<h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+           
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

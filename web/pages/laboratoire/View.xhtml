@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLaboratoireTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLaboratoireLabel_id}"/>
+                    <h:outputText value="#{laboratoireController.selected.id}" title="#{bundle.ViewLaboratoireTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewLaboratoireLabel_libelle}"/>
+                    <h:outputText value="#{laboratoireController.selected.libelle}" title="#{bundle.ViewLaboratoireTitle_libelle}"/>
+                    <h:outputText value="#{bundle.ViewLaboratoireLabel_adresse}"/>
+                    <h:outputText value="#{laboratoireController.selected.adresse}" title="#{bundle.ViewLaboratoireTitle_adresse}"/>
+                    <h:outputText value="#{bundle.ViewLaboratoireLabel_tel}"/>
+                    <h:outputText value="#{laboratoireController.selected.tel}" title="#{bundle.ViewLaboratoireTitle_tel}"/>
+                    <h:outputText value="#{bundle.ViewLaboratoireLabel_por}"/>
+                    <h:outputText value="#{laboratoireController.selected.por}" title="#{bundle.ViewLaboratoireTitle_por}"/>
+                    <h:outputText value="#{bundle.ViewLaboratoireLabel_mail}"/>
+                    <h:outputText value="#{laboratoireController.selected.mail}" title="#{bundle.ViewLaboratoireTitle_mail}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{laboratoireController.destroyAndView}" value="#{bundle.ViewLaboratoireDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewLaboratoireEditLink}"/>
+                <br />
+                <h:commandLink action="#{laboratoireController.prepareCreate}" value="#{bundle.ViewLaboratoireCreateLink}" />
+                <br />
+                <h:commandLink action="#{laboratoireController.prepareList}" value="#{bundle.ViewLaboratoireShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewLaboratoireIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

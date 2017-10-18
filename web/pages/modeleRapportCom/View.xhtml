@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewModeleRapportComTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form>
+                <p:growl id="growl" showDetail="true" sticky="true" /> 
+                <p:panel header="Consultation "> 
+                    <p:panelGrid columns="3" style="width:100%" styleClass="noBorders">  
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_idModeleRapport}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.idModeleRapport}" title="#{bundle.ViewModeleRapportComTitle_idModeleRapport}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_nomModele}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.nomModele}" title="#{bundle.ViewModeleRapportComTitle_nomModele}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_requette}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.requette}" title="#{bundle.ViewModeleRapportComTitle_requette}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_margeTop}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.margeTop}" title="#{bundle.ViewModeleRapportComTitle_margeTop}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_margeLeft}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.margeLeft}" title="#{bundle.ViewModeleRapportComTitle_margeLeft}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_margeRight}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.margeRight}" title="#{bundle.ViewModeleRapportComTitle_margeRight}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_matgeBottom}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.matgeBottom}" title="#{bundle.ViewModeleRapportComTitle_matgeBottom}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_pageHeight}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.pageHeight}" title="#{bundle.ViewModeleRapportComTitle_pageHeight}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_pageWidth}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.pageWidth}" title="#{bundle.ViewModeleRapportComTitle_pageWidth}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_orientation}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.orientation}" title="#{bundle.ViewModeleRapportComTitle_orientation}"/>
+                        <h:outputText value="#{bundle.ViewModeleRapportComLabel_typeOperation}"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{modeleRapportComController.selected.typeOperation}" title="#{bundle.ViewModeleRapportComTitle_typeOperation}"/>
+                    </p:panelGrid>    
+                </p:panel>
+                <br />
+                <p:commandLink action="#{modeleRapportComController.destroyAndView}" style="margin-left: 20px" update="growl" immediate="true" >
+                    <p:graphicImage value="/images/delete.jpg" title="supprimer" />
+                </p:commandLink>
+
+
+
+                <h:commandLink action="Edit" style="margin-left: 20px" >
+                    <p:graphicImage value="/images/Editmax.jpg" title="modifier"/>
+                </h:commandLink>
+
+
+                <h:commandLink action="List" immediate="true" style="margin-left: 20px"   >
+                    <p:graphicImage value="/images/liste.jpg" title="Liste" />
+                </h:commandLink>
+
+                <h:commandLink action="/index" immediate="true" style="margin-left: 20px"   >
+                    <p:graphicImage value="/images/home.png" title="Accueil" />
+                </h:commandLink>          
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

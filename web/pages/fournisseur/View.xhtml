@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFournisseurTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_id}"/>
+                    <h:outputText value="#{fournisseurController.selected.id}" title="#{bundle.ViewFournisseurTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_code}"/>
+                    <h:outputText value="#{fournisseurController.selected.code}" title="#{bundle.ViewFournisseurTitle_code}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_nom}"/>
+                    <h:outputText value="#{fournisseurController.selected.nom}" title="#{bundle.ViewFournisseurTitle_nom}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_matriculefiscale}"/>
+                    <h:outputText value="#{fournisseurController.selected.matriculefiscale}" title="#{bundle.ViewFournisseurTitle_matriculefiscale}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_adresse}"/>
+                    <h:outputText value="#{fournisseurController.selected.adresse}" title="#{bundle.ViewFournisseurTitle_adresse}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_codepostale}"/>
+                    <h:outputText value="#{fournisseurController.selected.codepostale}" title="#{bundle.ViewFournisseurTitle_codepostale}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_tel}"/>
+                    <h:outputText value="#{fournisseurController.selected.tel}" title="#{bundle.ViewFournisseurTitle_tel}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_fax}"/>
+                    <h:outputText value="#{fournisseurController.selected.fax}" title="#{bundle.ViewFournisseurTitle_fax}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_mail}"/>
+                    <h:outputText value="#{fournisseurController.selected.mail}" title="#{bundle.ViewFournisseurTitle_mail}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_por}"/>
+                    <h:outputText value="#{fournisseurController.selected.por}" title="#{bundle.ViewFournisseurTitle_por}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_datecreation}"/>
+                    <h:outputText value="#{fournisseurController.selected.datecreation}" title="#{bundle.ViewFournisseurTitle_datecreation}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_datecreationfiche}"/>
+                    <h:outputText value="#{fournisseurController.selected.datecreationfiche}" title="#{bundle.ViewFournisseurTitle_datecreationfiche}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_dernieredatemodif}"/>
+                    <h:outputText value="#{fournisseurController.selected.dernieredatemodif}" title="#{bundle.ViewFournisseurTitle_dernieredatemodif}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_photo}"/>
+                    <h:outputText value="#{fournisseurController.selected.photo}" title="#{bundle.ViewFournisseurTitle_photo}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_actif}"/>
+                    <h:outputText value="#{fournisseurController.selected.actif}" title="#{bundle.ViewFournisseurTitle_actif}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_ville}"/>
+                    <h:outputText value="#{fournisseurController.selected.ville}" title="#{bundle.ViewFournisseurTitle_ville}"/>
+                    <h:outputText value="#{bundle.ViewFournisseurLabel_nationalite}"/>
+                    <h:outputText value="#{fournisseurController.selected.nationalite}" title="#{bundle.ViewFournisseurTitle_nationalite}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{fournisseurController.destroyAndView}" value="#{bundle.ViewFournisseurDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewFournisseurEditLink}"/>
+                <br />
+                <h:commandLink action="#{fournisseurController.prepareCreate}" value="#{bundle.ViewFournisseurCreateLink}" />
+                <br />
+                <h:commandLink action="#{fournisseurController.prepareList}" value="#{bundle.ViewFournisseurShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewFournisseurIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

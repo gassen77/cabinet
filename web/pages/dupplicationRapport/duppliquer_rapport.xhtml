@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Duppliquer Rapports"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            
+                    <style type="text/css">
+          .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+    border-style: solid;
+    border-width: initial;
+    overflow: hidden;
+    padding: 4px 10px;
+    
+}
+.ui-datatable table {
+    border-collapse:inherit;
+}</style>
+            <h:panelGroup id="messagePanel" layout="block">
+                <p:growl/>
+            </h:panelGroup>
+            <h:form id="form11">
+                <p:panel header="Duppliquer Rapport">
+                  
+                    <h:panelGrid columns="6" cellspacing="10">
+                            <h:outputText value="Rapport"/>
+                            <p:autoComplete size="40" dropdown="true" var="resultRapport" itemValue="#{resultRapport}" itemLabel="#{resultRapport.libelleModeleSortie}" 
+                                            id="acRapport" value="#{duppliquerRapportController.modele}" converter="#{duppliquerRapportController.modeleSortieConverter}"
+                                            completeMethod="#{duppliquerRapportController.autocompleteRapports}"
+                                            
+                                            required="true"
+                                            requiredMessage="Veuillez Saisir Le Modele">
+                                <p:column>
+                                    <h:outputLabel value="#{resultRapport.codeModeleSortie}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="#{resultRapport.libelleModeleSortie}"/>
+                                </p:column>
+                                <p:ajax event="itemSelect" listener="#{duppliquerRapportController.handleSelectRapport}"
+                                        update=":form11"/>
+                            </p:autoComplete>
+                            <h:outputText value="Nouveau Code"/>
+                            <p:inputText value="#{duppliquerRapportController.codeRapport}"/>
+                            <h:outputText value="Nouveau Libelle"/>
+                            <p:inputText value="#{duppliquerRapportController.libelleRapport}" size="40"/>
+                            <h:outputText id="detOut" rendered="#{duppliquerRapportController.renderDetailler}" value="Detailler"/>
+                            <p:selectBooleanButton id="detIn" rendered="#{duppliquerRapportController.renderDetailler}" value="#{duppliquerRapportController.detail}" onLabel="Oui" offLabel="Non"/>
+                            <h:outputText id="typOut" rendered="#{duppliquerRapportController.renderTypeRapport}" value="Nouveau Type"/>
+                            <p:selectOneMenu id="typIn" rendered="#{duppliquerRapportController.renderTypeRapport}" value="#{duppliquerRapportController.nouveauTypeRapport}">
+                                <f:selectItems value="#{modelesortieController.itemsAvailableSelectOneNomTablesJournaux}"/>
+                            </p:selectOneMenu>
+                            <h:outputText rendered="#{duppliquerRapportController.renderTypeTiersRapport}" value="Tiers"/>
+                            <p:selectOneMenu rendered="#{duppliquerRapportController.renderTypeTiersRapport}" value="#{duppliquerRapportController.typeTiers}">
+                                <f:selectItem itemLabel="---" itemValue="---"/>
+                                <f:selectItem itemLabel="Client" itemValue="Client"/>
+                                <f:selectItem itemLabel="Fournisseur" itemValue="Fournisseur"/>
+                                <f:selectItem itemLabel="Tiers" itemValue="Tiers"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                  
+                    <div style="height: 50px;width: 200px;position: fixed;bottom: 0px;">
+                        &nbsp; &nbsp;<h:commandLink rendered="#{duppliquerRapportController.boutonAjouter}" action="#{duppliquerRapportController.duppliquer()}" 
+                                                    title="Duppliquer" >
+                            <h:graphicImage value="/img/sauvegarder32.gif" style="border:0px;" />
+                        </h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" >
+                    <h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" />
+                </h:commandLink>
+                </div>
+                </p:panel>
+            </h:form>
+            
+        </ui:define>
+    </ui:composition>
+</html>

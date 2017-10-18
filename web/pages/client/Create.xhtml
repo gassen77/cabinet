@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+        </ui:define>
+        <ui:define name="body">
+            
+            <h:form id="f">
+                 <p:growl id="growl" showDetail="true"/>
+                 <p:panel toggleable="true" header="Creation #{clientController.nompage}" style="font-size: 20px;" >
+                 
+                         <p:tabView>
+                         <p:tab title="Informations">
+                             <h:outputLabel value="Informations De Base" style="font-size: 22px;color: darkblue;"  /> 
+                             <h:panelGrid columns="4" cellspacing="10" cellpadding="10">
+                    <h:outputLabel value="Code" for="code" style="font-size: 20px;"/>
+                    <p:inputText id="code" value="#{clientController.selected.code}" style="font-size: 20px;" />
+                    <h:outputLabel value="Patient" for="nom"  style="font-size: 20px;"  />
+                    <p:inputText id="nom" value="#{clientController.selected.nom}" style="font-size: 20px;" />
+                    <h:outputLabel value="C.I.N" for="cin" style="font-size: 20px;" />
+                    <p:inputText id="cin" value="#{clientController.selected.cin}" style="font-size: 20px;" />
+                    <h:outputLabel value=" Numero Fiche" for="numerofiche" style="font-size: 20px;"  />
+                    <p:inputText id="numerofiche" value="#{clientController.selected.numerofiche}" style="font-size: 20px;" />
+                     </h:panelGrid>
+                    <p:separator id="separator1"/>  
+                    <h:outputLabel value="Contact" style="font-size: 22px;color: darkblue;"  /> 
+                   <h:panelGrid columns="6" cellspacing="10" cellpadding="10">
+                    <h:outputLabel value="Adresse" for="adresse" style="font-size: 20px;" />
+                    <p:inputText id="adresse" value="#{clientController.selected.adresse}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Code Postale" for="codepostale" style="font-size: 20px;" />
+                    <p:inputText id="codepostale" value="#{clientController.selected.codepostale}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Tel" for="tel"  style="font-size: 20px;" />
+                    <p:inputText id="tel" value="#{clientController.selected.tel}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Fax" for="fax"  style="font-size: 20px;" />
+                    <p:inputText id="fax" value="#{clientController.selected.fax}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Mail" for="mail"  style="font-size: 20px;" />
+                    <p:inputText id="mail" value="#{clientController.selected.mail}" style="font-size: 20px;"  />
+                    <h:outputLabel value="Por" for="por"  style="font-size: 20px;" />
+                    <p:inputText id="por" value="#{clientController.selected.por}" style="font-size: 20px;"  />
+                       </h:panelGrid>
+               <p:separator id="separator2"/> 
+                    <h:outputLabel value="Infos Personnelles" style="font-size: 22px;color: darkblue;"  /> 
+                    <h:panelGrid columns="6" cellspacing="10" cellpadding="10">
+                         <h:outputLabel value="Date Naissance" for="datenaissance"  style="font-size: 20px;" />
+                       
+                    <p:calendar id="datenaissance" navigator="true" style="font-size: 20px;"  pattern="dd/MM/yyyy"  value="#{clientController.selected.datenaissance}"  />
+                    <h:outputLabel value="Plafond" for="plafond" style="font-size: 20px;" />
+                    <p:inputText id="plafond" value="#{clientController.selected.plafond}"  style="font-size: 20px;" >
+                           <p:ajax event="blur"  update="@this"  />
+                     <f:convertNumber minFractionDigits="3" locale="en-US"  />    
+                    </p:inputText>
+                    <h:outputLabel value="Actif" for="actif"  style="font-size: 20px;" />
+                    
+                     <p:selectBooleanButton  id="actif"  onLabel="Oui" offLabel="Non" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{clientController.selected.actif}">
+                        <p:ajax event="change" update="@this" />
+                    </p:selectBooleanButton>  
+                    <h:outputLabel value="Ville" for="ville"  style="font-size: 20px;"/>
+                  
+                     <p:autoComplete id="ville" size="30" dropdown="true" style="font-size: 20px;" var="resultville" itemValue="#{resultville}" itemLabel="#{resultville.libelle}" 
+                                  maxResults="10"    value="#{clientController.selected.ville}" completeMethod="#{clientController.autocompleteVille}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultville.libelle}" style="font-size: 20px;"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+                    <h:outputLabel value="Gendre" for="sexe" style="font-size: 20px;" />
+                    <p:autoComplete id="sexe"  style="font-size: 20px;" size="30" dropdown="true" var="resultsexe" itemValue="#{resultsexe}" itemLabel="#{resultsexe.libelle}" 
+                                 maxResults="10"     value="#{clientController.selected.sexe}" completeMethod="#{clientController.autocompleteSexe}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;" value="#{resultsexe.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+              
+                    <h:outputLabel value="Profession" for="profession" style="font-size: 20px;"/>
+                     <p:autoComplete id="profession" style="font-size: 20px;" size="30" dropdown="true" var="resultprofession" itemValue="#{resultprofession}" itemLabel="#{resultprofession.libelle}" 
+                                  maxResults="10"     value="#{clientController.selected.profession}" completeMethod="#{clientController.autocompleteProfession}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;" value="#{resultprofession.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete>  
+                    
+                    <h:outputLabel value="Nationalite" for="nationalite"  style="font-size: 20px;" />
+                      <p:autoComplete id="nationalite" style="font-size: 20px;" size="30" dropdown="true" var="resultnationalite" itemValue="#{resultnationalite}" itemLabel="#{resultnationalite.libelle}" 
+                                  maxResults="10"      value="#{clientController.selected.nationalite}" completeMethod="#{clientController.autocompleteNationalite}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;"  value="#{resultnationalite.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                   
+                    <h:outputLabel value="Laboratoire" for="laboratoire" style="font-size: 20px;" />
+                     <p:autoComplete id="laboratoire" size="30" style="font-size: 20px;" dropdown="true" var="resultlaboratoire" itemValue="#{resultlaboratoire}" itemLabel="#{resultlaboratoire.libelle}" 
+                                  maxResults="10"     value="#{clientController.selected.laboratoire}" completeMethod="#{clientController.autocompleteLaboratoire}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel value="#{resultlaboratoire.libelle}" style="font-size: 20px;" />
+                                            </p:column>
+                                        </p:autoComplete> 
+              
+                    <h:outputLabel value="Classe Client" for="classeClient" style="font-size: 20px;"  />
+                     <p:autoComplete id="classeClient" size="30"  style="font-size: 20px;" dropdown="true" var="resultclasseClient" itemValue="#{resultclasseClient}" itemLabel="#{resultclasseClient.libelle}" 
+                                     maxResults="10"     value="#{clientController.selected.classeClient}" completeMethod="#{clientController.autocompleteClasseClient}">
+                      <p:ajax event="itemSelect"  update="@this" /> 
+                                             <p:column>
+                                                <h:outputLabel style="font-size: 20px;" value="#{resultclasseClient.libelle}"/>
+                                            </p:column>
+                                        </p:autoComplete> 
+                  
+                </h:panelGrid>
+                     
+                      </p:tab>
+                        <p:tab id="tab12" title="Image Patient">
+                       <h:panelGrid columns="1" id="container" border="1">
+                     <h:form id="form12">
+                                <p:fileUpload
+                    update="messages,imgTier23,:f"
+                    allowTypes="/(\.|\/)(jpe?g)$/"
+                    auto="true"
+                    multiple="false"
+                    label="Télécharger"
+                    mode="advanced"
+                    style="width: 250px;"
+                    fileUploadListener="#{clientController.handleFileUpload}">
+                                    <p:graphicImage id="imgTier23" width="250" height="250" value="#{clientController.selected.photo}" />
+                    </p:fileUpload>
+                    <p:growl id="messages" showDetail="false"/>
+                      
+                        </h:form>
+                    </h:panelGrid>
+                  
+                    </p:tab>
+                       </p:tabView>
+                        
+                      <br />
+                &nbsp; &nbsp;<h:commandLink  action="#{clientController.create}" title="Sauvegarder" ><h:graphicImage value="/img/save.gif" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp;<h:commandLink action="#{clientController.prepareList()}" title="Liste" immediate="true" ><h:graphicImage value="/img/list.png" style="border:0px;" /></h:commandLink>
+                &nbsp; &nbsp; <h:commandLink  action="/index" immediate="true" ><h:graphicImage value="/img/home.gif" title="Menu Principal" style="border:0px;" /></h:commandLink>
+
+                 </p:panel>
+                     <br />
+              
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
